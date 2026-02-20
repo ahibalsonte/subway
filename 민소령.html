@@ -252,7 +252,15 @@ background:#ffdae9;
 </div>
     </div>
 
-    <script>
+<script>
+const confessBtn = document.getElementById('confessBtn');
+const closeConfessBtn = document.getElementById('closeConfessBtn');
+const linkTree = document.getElementById('linkTree');
+
+const feedBtn = document.getElementById('feedBtn');
+const closeFeedBtn = document.getElementById('closeFeedBtn');
+const feedGallery = document.getElementById('feedGallery');
+
 const feedImages = document.querySelectorAll('.feed-img');
 const modal = document.getElementById('imgModal');
 const modalImg = document.getElementById('modalImg');
@@ -261,6 +269,37 @@ let currentIndex = 0;
 let startX = 0;
 let isAnimating = false;
 
+/* 고백 */
+confessBtn.addEventListener('click', () => {
+    linkTree.style.display = 'block';
+    setTimeout(() => {
+        window.scrollTo({
+            top: linkTree.offsetTop - 20,
+            behavior: 'smooth'
+        });
+    }, 100);
+});
+
+closeConfessBtn.addEventListener('click', () => {
+    linkTree.style.display = 'none';
+});
+
+/* 피드 */
+feedBtn.addEventListener('click', () => {
+    feedGallery.style.display = 'block';
+    setTimeout(() => {
+        window.scrollTo({
+            top: feedGallery.offsetTop - 20,
+            behavior: 'smooth'
+        });
+    }, 100);
+});
+
+closeFeedBtn.addEventListener('click', () => {
+    feedGallery.style.display = 'none';
+});
+
+/* 이미지 모달 */
 feedImages.forEach((img, index) => {
     img.addEventListener('click', () => {
         currentIndex = index;
@@ -309,43 +348,6 @@ modalImg.addEventListener('click', e=>{
     if(e.clientX > window.innerWidth/2) slide(1);
     else slide(-1);
 });
-confessBtn.addEventListener('click', () => {
-    linkTree.style.display = 'block';
-});
-
-closeConfessBtn.addEventListener('click', () => {
-    linkTree.style.display = 'none';
-});
-
-feedBtn.addEventListener('click', () => {
-    feedGallery.style.display = 'block';
-});
-
-closeFeedBtn.addEventListener('click', () => {
-    feedGallery.style.display = 'none';
-});
-
-confessBtn.onclick=()=>{
-    linkTree.style.display='block';
-
-    setTimeout(()=>{
-        window.scrollTo({
-            top: linkTree.offsetTop - 20,
-            behavior:'smooth'
-        });
-    },100);
-};
-
-feedBtn.onclick=()=>{
-    feedGallery.style.display='block';
-
-    setTimeout(()=>{
-        window.scrollTo({
-            top: feedGallery.offsetTop - 20,
-            behavior:'smooth'
-        });
-    },100);
-};
 </script>
 
 </body>
