@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BACKPACK | Yàn xī</title>
+    <style>
+        :root {
+            --bg-color: #080808;
+            --card-bg: #121212;
+            --accent-color: #f4d03f; /* 옌시의 노란 눈 */
+            --sub-accent: #2c3e50; /* 남색 숏컷의 어두운 톤 */
+            --point-red: #8b0000; /* 자해, 상처, 펑크의 암시 */
+            --text-color: #cfcfcf;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Pretendard', sans-serif;
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            line-height: 1.5;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            border: 1px solid #222;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            position: relative;
+        }
+
+        header {
+            padding: 40px 20px 20px;
+            text-align: center;
+            border-bottom: 1px solid #222;
+            background: linear-gradient(to bottom, #1a1a1a 0%, #121212 100%);
+        }
+
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--sub-accent);
+            filter: grayscale(0.2) contrast(1.1);
+            margin-bottom: 15px;
+        }
+
+        .name-group h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+
+        .name-group .chinese {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .main-tags {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .tag-item {
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 3px 10px;
+            border: 1px solid var(--point-red);
+            color: var(--point-red);
+            background: rgba(139, 0, 0, 0.05);
+        }
+
+        section {
+            padding: 25px 20px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        h2 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #555;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #222;
+            margin-left: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            font-size: 0.9rem;
+        }
+
+        .info-item b {
+            display: block;
+            color: var(--accent-color);
+            font-size: 0.75rem;
+            margin-bottom: 2px;
+        }
+
+        .desc {
+            font-size: 0.9rem;
+            color: #aaa;
+            word-break: keep-all;
+        }
+
+        .band-box {
+            background: #0a0a0a;
+            padding: 15px;
+            border-left: 2px solid var(--accent-color);
+            font-size: 0.85rem;
+        }
+
+        .album-list {
+            margin-top: 10px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .album-list li {
+            padding: 5px 0;
+            border-bottom: 1px solid #1a1a1a;
+            color: #888;
+        }
+
+        .album-list li strong {
+            color: #ccc;
+        }
+
+        .member-list { margin-top: 10px; }
+        .member-item { margin-bottom: 15px; font-size: 0.85rem; }
+        .member-item strong { color: #eee; border-bottom: 1px solid var(--sub-accent); }
+        .member-item span { display: block; color: #777; font-size: 0.8rem; margin-top: 2px; }
+
+        /* 버튼 컨테이너 및 스타일 */
+        .action-container {
+            padding: 30px 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn {
+            background: transparent;
+            padding: 12px 0;
+            flex: 1;
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        /* PLAY 버튼 (노란색) */
+        .play-btn {
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+        }
+
+        .play-btn:hover {
+            background: var(--accent-color);
+            color: #000;
+            box-shadow: 0 0 20px rgba(244, 208, 63, 0.4);
+        }
+
+        /* OTHERS 버튼 (회색/흰색) */
+        .others-btn {
+            color: #fff;
+            border: 1px solid #444;
+        }
+
+        .others-btn:hover {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        /* 링크트리 모달 레이어 */
+        #linktree-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .linktree-content {
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+        }
+
+        .linktree-content h3 {
+            color: #fff;
+            margin-bottom: 25px;
+            font-size: 1rem;
+            letter-spacing: 3px;
+        }
+
+        .link-item {
+            display: block;
+            background: #1a1a1a;
+            color: #fff;
+            text-decoration: none;
+            padding: 14px;
+            margin-bottom: 8px;
+            border: 1px solid #333;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+
+        .link-item:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: #000;
+        }
+
+        .close-modal {
+            margin-top: 25px;
+            color: #555;
+            font-size: 0.75rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 0; }
+            .container { border: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <img src="https://typie.net/images/26/02/K/K2/K2WpGNHM-t0okHnF5EUXz.png" alt="Yansi" class="profile-img">
+        <div class="name-group">
+            <h1>옌시</h1>
+            <span class="chinese">彦希 (Yàn xī)</span>
+        </div>
+        <div class="main-tags">
+            <span class="tag-item">#멘헤라</span>
+            <span class="tag-item">#락스타</span>
+            <span class="tag-item">#자낮</span>
+        </div>
+    </header>
+
+    <section>
+        <div class="info-grid">
+            <div class="info-item"><b>AGE</b>23세</div>
+            <div class="info-item"><b>POSITION</b>BASS</div>
+            <div class="info-item"><b>HEIGHT</b>162cm / 49kg</div>
+            <div class="info-item"><b>SMELL</b>시트러스</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Overview</h2>
+        <p class="desc">
+            "약 없으면 잠도 못 자는데, 무대 위에선 멀쩡한 척하는 게 웃기지 않아?"<br><br>
+            화교 3세, 리켄베커 4003JG의 묵직한 저음 뒤로 자신의 균열을 숨긴다. 과거의 학교 폭력으로 인한 화상 흉터와 자해의 흔적을 가리기 위해 사계절 내내 긴 소매를 고수하며, 비관적인 방어기제 뒤에 지독한 애정결핍을 눌러 담고 있다.
+        </p>
+    </section>
+
+    <section>
+        <h2>Band: BACKPACK</h2>
+        <div class="band-box">
+            4인조 펑크 록밴드 | 2022년 결성<br>
+            사회 체제와 도덕적 관념 풍자 및 비판 위주
+        </div>
+        <ul class="album-list">
+            <li><strong>정규 1집</strong> 『다 죽자』</li>
+            <li><strong>미니 1집</strong> 『그게 뭔데 **아』</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Members</h2>
+        <div class="member-list">
+            <div class="member-item"><strong>청예림 | Vocal & Keyboard</strong><span>24세. 검은 칼단발. 시원시원한 성격의 야구 팬.</span></div>
+            <div class="member-item"><strong>진율하 | Drums</strong><span>21세. 은발에 푸른 눈. 추리 소설을 좋아하는 쾌활한 주당.</span></div>
+            <div class="member-item"><strong>남유결 | Guitar</strong><span>20세. 백금발 포니테일. 밴드의 막내이자 시각디자인 전공. 제이팝 덕후.</span></div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Details</h2>
+        <ul class="desc" style="padding-left: 15px;">
+            <li>전자담배 사용, 에너지 음료 자주 마심.</li>
+            <li>3개국어(한/영/중) 구사.</li>
+            <li>불면증 및 공황장애로 인한 정신과 약 복용 중.</li>
+            <li>좋아하는 사람에게는 지독하게 집착함.</li>
+        </ul>
+    </section>
+
+    <div class="action-container">
+        <button class="btn play-btn" onclick="toggleModal(true)">PLAY</button>
+        <a href="index.html" class="btn others-btn">OTHERS</a>
+    </div>
+
+    <footer>NO HOPE, NO SALVATION. ONLY VIBRATION.</footer>
+</div>
+
+<div id="linktree-modal">
+    <div class="linktree-content">
+        <h3>SELECT PLATFORM</h3>
+        <a href="#" class="link-item">크랙 (Cracked)</a>
+        <a href="#" class="link-item">케이브덕 (Caveduck)</a>
+        <a href="#" class="link-item">로판AI</a>
+        <a href="#" class="link-item">네코챗 (Nekochat)</a>
+        <a href="#" class="link-item">유니챗 (Unichat)</a>
+        <a href="#" class="link-item">티팟 (Teapot)</a>
+        <a href="#" class="link-item">엘린 (Elin)</a>
+        <div class="close-modal" onclick="toggleModal(false)">[ ESC ]</div>
+    </div>
+</div>
+
+<script>
+    function toggleModal(show) {
+        const modal = document.getElementById('linktree-modal');
+        modal.style.display = show ? 'flex' : 'none';
+    }
+</script>
+
+</body>
+</html>
