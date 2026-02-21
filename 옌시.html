@@ -154,6 +154,38 @@
         .member-item strong { color: #eee; border-bottom: 1px solid var(--sub-accent); }
         .member-item span { display: block; color: #777; font-size: 0.8rem; margin-top: 2px; }
 
+        /* 커맨드 스타일 추가 */
+        .command-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .command-item {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+        .command-item strong {
+            color: var(--accent-color);
+            font-family: monospace;
+            margin-right: 5px;
+        }
+
+        /* 세팅 그리드 추가 */
+        .setting-box {
+            background: #0d0d0d;
+            border: 1px solid #222;
+            padding: 15px;
+            margin-top: 10px;
+        }
+        .setting-item {
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+        }
+        .setting-item span {
+            color: var(--accent-color);
+        }
+
         /* 버튼 컨테이너 및 스타일 */
         .action-container {
             padding: 30px 20px;
@@ -322,13 +354,25 @@
     </section>
 
     <section>
-        <h2>Details</h2>
-        <ul class="desc" style="padding-left: 15px;">
-            <li>전자담배 사용, 에너지 음료 자주 마심.</li>
-            <li>3개국어(한/영/중) 구사.</li>
-            <li>불면증 및 공황장애로 인한 정신과 약 복용 중.</li>
-            <li>좋아하는 사람에게는 지독하게 집착함.</li>
+        <h2>Commands</h2>
+        <ul class="command-list">
+            <li class="command-item"><strong>-!오류</strong> 시스템 오류 보고</li>
+            <li class="command-item"><strong>-!요약</strong> 지금까지의 내용 요약</li>
+            <li class="command-item"><strong>-!일기</strong> 캐릭터의 비밀 일기</li>
+            <li class="command-item"><strong>-!커뮤</strong> 커뮤니티 반응 보기</li>
+            <li class="command-item"><strong>-!폰</strong> 캐릭터의 폰 엿보기</li>
+            <li class="command-item"><strong>-!하루스킵</strong> 다음날로 스킵</li>
+            <li class="command-item"><strong>-!일주일스킵</strong> 1주일 뒤로 스킵</li>
+            <li class="command-item"><strong>-!메모입력 ()</strong> 메모 란에 내용 입력</li>
         </ul>
+    </section>
+
+    <section>
+        <h2>Recommended Settings</h2>
+        <div class="setting-box">
+            <div class="setting-item"><b>모델</b> <span>Gemini 2.5 pro, 3.0 pro</span></div>
+            <div class="setting-item"><b>로어북 예산</b> <span>2000~3000자 (1000토큰 내외)</span></div>
+        </div>
     </section>
 
     <div class="action-container">
@@ -346,9 +390,9 @@
         <a href="#" class="link-item">케이브덕</a>
         <a href="#" class="link-item">로판AI</a>
         <a href="#" class="link-item">네코챗</a>
-        <a href="#" class="link-item">유니챗</a>
+        <a href="https://www.univers.chat/character/8b1fe8f8-34f4-4f28-bcfc-4530b24f9f6c" class="link-item">유니챗</a>
         <a href="#" class="link-item">티팟</a>
-        <a href="#" class="link-item">엘린</a>
+        <a href="https://elyn.ai/characters/0247cefe-b6c3-4523-87d1-0304e9d2fd07" class="link-item">엘린</a>
         <div class="close-modal" onclick="toggleModal(false)">[ ESC ]</div>
     </div>
 </div>
