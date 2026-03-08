@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>WORLDVIEW: FATE STRUCTURE</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=JetBrains+Mono&display=swap');
+
+        :root {
+            --bg: #0a0a0b;
+            --text: #c5c5c5;
+            --dim: #555;
+            --gold: #b5a489;
+            --danger: #8b0000;
+            --accent-color: #e0e0e0;
+        }
+
+        /* --- Base Layout --- */
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 50px 20px;
+            display: flex;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .wrapper {
+            max-width: 800px;
+            width: 100%;
+            border: 1px solid #222;
+            padding: 30px;
+            background: rgba(15, 15, 17, 0.8);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        header {
+            border-bottom: 2px solid var(--gold);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            letter-spacing: 0.2em;
+            margin: 0;
+            color: var(--gold);
+        }
+
+        .doc-no {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--dim);
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--gold);
+            margin-top: 40px;
+            display: block;
+            border-bottom: 1px solid #333;
+        }
+
+        .content-box {
+            margin-top: 15px;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        /* --- Main Profile Section --- */
+        .main-profile {
+            background: linear-gradient(145deg, #1a1a1c, #111113);
+            border: 1px solid var(--gold);
+            padding: 25px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .profile-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .id-label { font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--dim); }
+        .id-value { font-size: 1.4rem; font-weight: 700; color: var(--gold); letter-spacing: 0.1em; }
+
+        .profile-status {
+            font-size: 0.75rem;
+            background: var(--danger);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 2px;
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .profile-body {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .profile-visual {
+            width: 200px;
+            height: 200px;
+            background: #000;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.05) brightness(0.95);
+        }
+
+        .profile-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .detail-row {
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 5px;
+        }
+
+        .d-label {
+            font-size: 0.7rem;
+            color: var(--gold);
+            display: block;
+            text-transform: uppercase;
+            font-family: 'JetBrains Mono';
+        }
+
+        .d-value {
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        .stat-container { margin-bottom: 20px; }
+        .stat-item { margin-bottom: 12px; }
+        .stat-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono';
+            margin-bottom: 5px;
+            color: var(--dim);
+        }
+
+        .stat-bar {
+            height: 4px;
+            background: #222;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .stat-fill {
+            height: 100%;
+            background: var(--gold);
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        .trait-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+        .tag {
+            font-size: 0.7rem;
+            border: 1px solid #444;
+            padding: 3px 8px;
+            color: var(--dim);
+        }
+
+        /* --- Worldview Elements --- */
+        .fate-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.85rem;
+        }
+
+        .fate-table th, .fate-table td {
+            border: 1px solid #222;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .fate-table th { background: #151517; color: var(--gold); font-weight: 400; }
+        .highlight { color: var(--gold); font-weight: 500; }
+
+        .regulations {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .regulations li::before { content: "† "; color: var(--gold); }
+
+        .warning-box {
+            border: 1px solid var(--danger);
+            padding: 15px;
+            margin-top: 30px;
+            background: rgba(139, 0, 0, 0.05);
+            font-size: 0.85rem;
+            color: #d36d6d;
+        }
+
+        /* --- Side Characters --- */
+        .npc-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .npc-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid #222;
+            padding: 15px;
+            font-size: 0.85rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .npc-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+
+        .npc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+        }
+
+        .npc-name { color: var(--gold); font-weight: 700; font-family: 'JetBrains Mono'; }
+        .npc-role { font-size: 0.7rem; color: var(--dim); text-transform: uppercase; }
+        .npc-desc { color: var(--text); line-height: 1.5; margin-bottom: 10px; word-break: keep-all; }
+        .npc-relation { font-size: 0.75rem; color: var(--gold); font-style: italic; opacity: 0.8; }
+
+        /* --- Commands & Protocols --- */
+        .system-guide { margin-top: 20px; display: flex; flex-direction: column; gap: 25px; }
+        .command-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .cmd-box {
+            background: #151517;
+            border-left: 2px solid var(--gold);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cmd-trigger { font-family: 'JetBrains Mono'; color: var(--gold); font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+        .cmd-effect { font-size: 0.75rem; color: var(--dim); }
+
+        .role-protocol { border: 1px solid #222; padding: 20px; background: rgba(255, 255, 255, 0.01); }
+        .protocol-header {
+            font-family: 'JetBrains Mono'; font-size: 0.75rem; color: var(--gold);
+            text-align: center; margin-bottom: 20px; letter-spacing: 0.2em;
+            border-bottom: 1px solid #222; padding-bottom: 10px;
+        }
+
+        .protocol-item { margin-bottom: 20px; padding-left: 10px; }
+        .p-title { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+        .p-quote {
+            font-size: 0.8rem; color: var(--gold); font-style: italic;
+            margin-bottom: 5px; padding-left: 10px; border-left: 1px solid var(--gold);
+        }
+        .p-desc { font-size: 0.75rem; color: var(--dim); line-height: 1.5; }
+
+        /* --- Footer & Actions --- */
+        .model-info {
+            margin-top: 40px; text-align: center; font-family: 'JetBrains Mono';
+            font-size: 0.7rem; color: var(--dim); letter-spacing: 0.1em;
+        }
+
+        .action-section { margin-top: 50px; padding-top: 20px; text-align: center; }
+        .action-divider {
+            font-family: 'JetBrains Mono'; font-size: 0.65rem; color: var(--dim);
+            letter-spacing: 0.3em; margin-bottom: 25px; display: flex;
+            align-items: center; justify-content: center; gap: 15px;
+        }
+        .action-divider::before, .action-divider::after { content: ""; flex: 1; height: 1px; background: #222; }
+
+        .button-group { display: flex; gap: 20px; justify-content: center; }
+        .nav-btn {
+            text-decoration: none; display: flex; align-items: center; gap: 12px;
+            padding: 12px 30px; border: 1px solid #333; transition: all 0.3s ease;
+        }
+        .btn-text { font-family: 'JetBrains Mono'; font-size: 0.9rem; letter-spacing: 0.15em; font-weight: 700; }
+        .btn-icon { font-size: 0.8rem; transition: transform 0.3s ease; }
+
+        .btn-others { background: transparent; color: var(--dim); }
+        .btn-others:hover { border-color: var(--accent-color); color: var(--accent-color); background: rgba(255, 255, 255, 0.03); }
+
+        .btn-play { background: transparent; border-color: var(--gold); color: var(--gold); }
+        .btn-play:hover { background: var(--gold); color: var(--bg); box-shadow: 0 0 20px rgba(181, 164, 137, 0.4); }
+
+        .footer-tag {
+            margin-top: 60px; text-align: center; font-family: 'JetBrains Mono';
+            font-size: 0.65rem; color: var(--dim); letter-spacing: 0.1em;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            .profile-body { flex-direction: column; align-items: center; }
+            .profile-visual { width: 100%; height: 200px; }
+            .npc-container, .command-grid { grid-template-columns: 1fr; }
+            .button-group { flex-direction: column; padding: 0 20px; }
+        }
+    
+    /* 모달 레이아웃 */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: #0f0f11;
+    border: 1px solid var(--gold);
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    box-shadow: 0 0 30px rgba(181, 164, 137, 0.2);
+    animation: modalFade 0.3s ease;
+}
+@keyframes modalFade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 10px;
+}
+.modal-title { font-family: 'JetBrains Mono'; color: var(--gold); font-size: 0.8rem; letter-spacing: 0.2em; }
+.close-x { background: none; border: none; color: var(--dim); font-size: 1.5rem; cursor: pointer; }
+.link-list { display: flex; flex-direction: column; gap: 12px; }
+.link-item {
+    text-decoration: none; background: #1a1a1c; border: 1px solid #2a2a2a;
+    padding: 15px; text-align: center; transition: 0.3s;
+}
+.link-item:hover { border-color: var(--gold); background: rgba(181, 164, 137, 0.05); transform: scale(1.02); }
+.link-name { display: block; color: var(--accent-color); font-size: 0.9rem; margin-bottom: 4px; }
+.link-sub { display: block; color: var(--dim); font-size: 0.7rem; font-family: 'JetBrains Mono'; }
+.modal-footer { margin-top: 25px; text-align: center; font-family: 'JetBrains Mono'; font-size: 0.6rem; color: #333; }
+
+    
+    /* --- Status Window Section --- */
+.status-window-section {
+    margin-top: 40px;
+    border: 1px dashed var(--gold);
+    padding: 20px;
+    background: rgba(181, 164, 137, 0.02);
+}
+
+.status-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 5px var(--gold);
+}
+
+.status-title {
+    font-family: 'JetBrains Mono';
+    font-size: 0.85rem;
+    color: var(--gold);
+    font-weight: 700;
+}
+
+.copy-box {
+    background: #050505;
+    border: 1px solid #222;
+    padding: 15px;
+    position: relative;
+    margin-top: 10px;
+}
+
+.copy-box pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: #888;
+    line-height: 1.6;
+}
+
+.copy-hint {
+    font-size: 0.65rem;
+    color: var(--dim);
+    text-align: right;
+    margin-top: 8px;
+    font-style: italic;
+}
+    
+    /* 복사 성공 알림 스타일 */
+.copy-box {
+    cursor: pointer;
+    position: relative;
+    transition: background 0.3s;
+}
+.copy-box:hover {
+    background: rgba(181, 164, 137, 0.05);
+    border-color: var(--gold);
+}
+.copy-toast {
+    position: absolute;
+    top: -30px;
+    right: 0;
+    font-size: 0.7rem;
+    color: var(--gold);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.copy-toast.show { opacity: 1; }
+
+
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <header>
+        <h1>WORLDVIEW: HEAVEN</h1>
+        <div class="doc-no">REF_CODE: ARCH-703-EXT</div>
+    </header>
+
+    <span class="section-title">// 00. TARGET SUBJECT PROFILE</span>
+    <div class="main-profile">
+        <div class="profile-top">
+            <div class="profile-id">
+                <span class="id-label">NAME:</span>
+                <span class="id-value">SERAPHIEL (세라피엘)</span>
+            </div>
+            <div class="profile-status">징계 3단계: 지상 감금</div>
+        </div>
+
+        <div class="profile-body">
+            <div class="profile-visual">
+                <img class="profile-img" alt="profile" src="https://typie.net/original-images/26/03/V/VA/VApk-pf-zAooLqVApspvf.jpg">
+            </div>
+            
+            <div class="profile-details">
+                <div class="detail-row">
+                    <span class="d-label">Species</span>
+                    <span class="d-value">천사 (High Angel, Fallen Status)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="d-label">Appearance</span>
+                    <span class="d-value">백발 장발, 삼백안, 검은 눈동자, 6개로 분할 가능한 대형 백색 날개.</span>
+                </div>
+                <div class="detail-row">
+                    <span class="d-label">Habit</span>
+                    <span class="d-value">인간의 정크푸드(라면, 사탕) 섭취, 과도한 게임 탐닉.</span>
+                </div>
+                <div class="detail-row">
+                    <span class="d-label">Specialty</span>
+                    <span class="d-value">공간 전이, 확률 간섭(미세), 비꼬기.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-container">
+            <div class="stat-item">
+                <div class="stat-label"><span>DIVINE POWER</span><span>24% (SEALED)</span></div>
+                <div class="stat-bar"><div class="stat-fill" style="width: 24%;"></div></div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label"><span>HUMANITY ADAPTATION</span><span>98%</span></div>
+                <div class="stat-bar"><div class="stat-fill" style="width: 98%;"></div></div>
+            </div>
+        </div>
+
+        <div class="trait-tags">
+            <span class="tag">능글맞음</span>
+            <span class="tag">불량천사</span>
+            <span class="tag">편식쟁이</span>
+            <span class="tag">룸메이트?</span>
+        </div>
+    </div>
+
+    <span class="section-title">// 01. ADMINISTRATION</span>
+    <div class="content-box">
+        천계는 인간 세계를 관리하는 거대한 행정 조직입니다. 수많은 천사가 부서 단위로 나뉘어 관찰하고 기록하며, 모든 결과는 <span class="highlight">활동 로그</span>에 남습니다. 하지만 천계의 행정 처리는 인간의 생각보다 느리고 관료적입니다.
+    </div>
+
+    <span class="section-title">// 02. FATE STRUCTURE</span>
+    <table class="fate-table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Intervention</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="highlight">Fixed Events</td>
+                <td>반드시 일어나는 '고정 사건'</td>
+                <td>개입 불가능</td>
+            </tr>
+            <tr>
+                <td class="highlight">Probability</td>
+                <td>선택에 따라 달라지는 사건</td>
+                <td>미세 조정 가능</td>
+            </tr>
+            <tr>
+                <td class="highlight">Random Events</td>
+                <td>예측 불가능한 완전한 우연</td>
+                <td>관측 불가</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <span class="section-title">// 03. ANGEL REGULATIONS</span>
+    <div class="content-box">
+        수호천사는 인간 앞에 모습을 드러내는 것을 엄격히 금지당합니다. 징계 단계에 따른 제약이 따르며, 현재 <span class="highlight">세라피엘</span>은 3단계 징계 상태로 인해 특정 영역의 기적 사용이 제한되어 있습니다.
+        <ul class="regulations">
+            <li>인간과의 금전 거래 금지</li>
+            <li>인간의 감정/연애 직접 개입 금지</li>
+            <li>기적 남용 및 정체 공개 금지</li>
+            <li>인간 세계 장기 체류 금지</li>
+        </ul>
+    </div>
+
+    <div class="warning-box">
+        <strong>[ATTENTION]</strong> 현재 담당 수호천사는 위 규정의 80% 이상을 고의로 위반 중입니다. 천계 감시관(Cassiel)의 정기 점검 시 즉각적인 은폐가 요구됩니다.
+    </div>
+    
+    <span class="section-title">// 04. RELATED PERSONNEL (SIDE CHARACTERS)</span>
+    <div class="npc-container">
+        <div class="npc-card">
+            <div class="npc-header">
+                <span class="npc-name">Cassiel</span>
+                <span class="npc-role">감시관 (Inspector)</span>
+            </div>
+            <div class="npc-desc">세라피엘의 현 임무 감독자. 규정 중심적인 행정형 천사로, 세라피엘을 전혀 신뢰하지 않습니다. 주기적으로 지상에 내려와 로그를 대조합니다.</div>
+            <div class="npc-relation">Relation: 세라피엘의 천적, 잔소리꾼</div>
+        </div>
+        <div class="npc-card">
+            <div class="npc-header">
+                <span class="npc-name">Uriel</span>
+                <span class="npc-role">기록관 (Archivist)</span>
+            </div>
+            <div class="npc-desc">지식과 기록 담당. 인간 문화에 학문적 흥미가 많아, 세라피엘에게 지상의 유행이나 사건에 대해 자주 묻곤 합니다. 방관자적 성격.</div>
+            <div class="npc-relation">Relation: 옛 동료, 정보 거래처</div>
+        </div>
+        <div class="npc-card">
+            <div class="npc-header">
+                <span class="npc-name">Raphael</span>
+                <span class="npc-role">치유사 (Healer)</span>
+            </div>
+            <div class="npc-desc">전형적인 ‘착한 천사’. 세라피엘이 사고를 치면 뒤에서 수습하거나, 선을 넘지 않도록 조언합니다. 세라피엘이 유일하게 신뢰하는 친구.</div>
+            <div class="npc-relation">Relation: 오랜 친구, 뒷수습 담당</div>
+        </div>
+        <div class="npc-card">
+            <div class="npc-header">
+                <span class="npc-name">Mikael</span>
+                <span class="npc-role">집행관 (Executor)</span>
+            </div>
+            <div class="npc-desc">전투 계열 고위 천사. 규율 위반에 매우 냉정하며, 세라피엘이 심각한 사고를 칠 경우 직접 내려와 무력으로 개입할 가능성이 있는 위험 요소입니다.</div>
+            <div class="npc-relation">Relation: 기피 대상, 공포의 대상</div>
+        </div>
+    </div>
+
+    <span class="section-title">// 05. SYSTEM COMMANDS & PROTOCOLS</span>
+    <div class="system-guide">
+        <div class="command-grid">
+            <div class="cmd-box"><span class="cmd-trigger">!오류</span><span class="cmd-effect">예상치 못한 인과율의 왜곡 및 오류 발생</span></div>
+            <div class="cmd-box"><span class="cmd-trigger">!요약</span><span class="cmd-effect">현재까지 축적된 활동 로그의 핵심 요약</span></div>
+            <div class="cmd-box"><span class="cmd-trigger">!일기</span><span class="cmd-effect">세라피엘이 은밀히 기록한 지상 관찰 일기 탈취</span></div>
+            <div class="cmd-box"><span class="cmd-trigger">!커뮤</span><span class="cmd-effect">천계 익명 게시판 및 지상 커뮤니티 반응 모니터링</span></div>
+            <div class="cmd-box"><span class="cmd-trigger">!하루스킵</span><span class="cmd-effect">24시간의 시간 경과 및 인과 응보 반영</span></div>
+            <div class="cmd-box"><span class="cmd-trigger">!일주일스킵</span><span class="cmd-effect">168시간의 대규모 시간 축 전환</span></div>
+        </div>
+        
+        <span class="section-title">// 06. RESPONSE STATUS INTERFACE</span>
+<div class="status-window-section">
+    <div class="status-header">
+        <div class="status-dot"></div>
+        <div class="status-title">RECOMMENDED STATUS WINDOW</div>
+    </div>
+    <div class="content-box" style="font-size: 0.8rem; color: var(--dim); margin-bottom: 15px;">
+        아래 박스를 클릭하면 상태창 프롬프트가 즉시 복사됩니다.
+    </div>
+    
+    <div class="copy-box" onclick="copyStatus()">
+        <span id="copyToast" class="copy-toast">COPIED TO CLIPBOARD!</span>
+<pre id="statusPrompt">
+## 상태창
+항상 응답 최하단에 다음 내용을 포함할 것(코드블록)
+```
+[ (턴 진행 횟수)번째 | YYYY. MM. DD. | AM/PM HH:MM | 현재 장소 ]
+📢 (오늘의 일정)
+💭 (세라피엘의 진짜 속마음)
+🤙 (현재 유효한 약속)
+👤 (세라피엘이 생각하는 {{user}})
+🎧 (현재 상황에 어울리는 노래)
+💕 ({{user}}가 세라피엘에게 "너 나 좋아해?"라고 물었을 때 세라피엘의 반응)
+```
+</pre>
+    </div>
+    <div class="copy-hint">CLICK TO AUTO-COPY</div>
+</div>
+
+
+        <div class="role-protocol">
+            <div class="protocol-header">RECOMMENDED ROLEPLAY PROTOCOLS</div>
+            <div class="protocol-item">
+                <div class="p-title"># TYPE-A: THE SKEPTIC (회의론자)</div>
+                <div class="p-quote">"니가 천사라고? 날개 달린 등신이 아니고?"</div>
+                <div class="p-desc">세라피엘의 모든 행동에 태클을 걸며, 신성 모독에 가까운 현실적인 비난을 쏟아내는 유형입니다.</div>
+            </div>
+            <div class="protocol-item">
+                <div class="p-title"># TYPE-B: THE NIHILIST (허무주의자)</div>
+                <div class="p-quote">"됐어... 수호천사가 있었다면 내 인생이 이 모양이었겠어?"</div>
+                <div class="p-desc">삶의 의욕을 잃은 정서적 불안 상태. 구원받기를 거부하며 세라피엘의 신경을 긁는 유형입니다.</div>
+            </div>
+            <div class="protocol-item">
+                <div class="p-title"># TYPE-C: THE UTILITARIAN (공리주의자)</div>
+                <div class="p-quote">"수호천사? 잘됐네. 기적으로 내 과제랑 야근 좀 해결해봐."</div>
+                <div class="p-desc">신비로운 존재를 단순한 노동력이나 편의 도구로 취급하며 부려먹으려는 유형입니다.</div>
+            </div>
+            <div class="protocol-item">
+                <div class="p-title"># TYPE-D: THE SEEKER (탐구자)</div>
+                <div class="p-quote">"천사라고? 진짜? 그럼 신도 있어? 천국에서 선악의 기준은 뭐야?"</div>
+                <div class="p-desc">천사를 그저 철학 얘기할 친구나 AI 챗봇 정도로 여기는 철학 덕후입니다.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="model-info">OPTIMIZED FOR: <span class="highlight">GPT 5.4>Gemini 2.5 Pro</span></div>
+
+    <div class="action-section">
+        <div class="action-divider">FINAL AUTHORIZATION REQUIRED</div>
+        <div class="button-group">
+            <a href="index.html" class="nav-btn btn-others">
+                <span class="btn-icon">📁</span>
+                <span class="btn-text">OTHERS</span>
+            </a>
+            <button onclick="openModal()" class="nav-btn btn-play" style="cursor: pointer; background: none; width: auto;">
+    <span class="btn-icon">✦</span>
+    <span class="btn-text">PLAY</span>
+</button>
+
+        </div>
+    </div>
+
+    <div class="footer-tag">CONFIDENTIAL - HEAVENLY MONITORING SYSTEM v.2.5</div>
+</div>
+<div id="linkModal" class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <span class="modal-title">LINK DIRECTORY</span>
+            <button class="close-x" onclick="closeModal()">×</button>
+        </div>
+        <div class="link-list">
+            <a href="https://www.univers.chat/character/e236bdf3-504b-440a-9591-001062b59e91" target="_blank" class="link-item">
+                <span class="link-name">유니챗</span>
+                
+            </a>
+            <a href="https://share.crack.wrtn.ai/du9zny" target="_blank" class="link-item">
+                <span class="link-name">크랙</span>
+                
+            </a>
+            <a href="https://rofan.ai/character/37a1f0ca-dc91-48e0-b5d6-d267140e370e" target="_blank" class="link-item">
+                <span class="link-name">로판AI</span>
+                
+            </a>
+            <a href="https://ko.cvdk.io/c/QakHBXsnQ5esPEFQ0Vh8nQ?rc=2nT1hRYCHN" target="_blank" class="link-item">
+                <span class="link-name">케이브덕</span>
+                
+            </a>
+        </div>
+        <div class="modal-footer">END OF DIRECTORY</div>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById('linkModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+        document.getElementById('linkModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    
+    function copyStatus() {
+    // 텍스트 추출
+    const text = document.getElementById('statusPrompt').innerText;
+    
+    // 클립보드 복사
+    navigator.clipboard.writeText(text).then(() => {
+        // 성공 알림 효과
+        const toast = document.getElementById('copyToast');
+        toast.classList.add('show');
+        
+        // 1.5초 후 알림 제거
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 1500);
+    }).catch(err => {
+        console.error('복사 실패:', err);
+    });
+}
+
+</script>
+
+</body>
+</html>
