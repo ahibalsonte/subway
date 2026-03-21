@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celestial Log: Raphael & The Human Management System</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;500;700&family=Noto+Sans+KR:wght@300;400;700&display=swap');
+
+        :root {
+            --bg-color: #f0f2f5;
+            --heaven-gold: #c5a059;
+            --heaven-silver: #b0bec5;
+            --heaven-blue: #eceff1;
+            --text-dark: #1a1a1a;
+            --text-light: #546e7a;
+            --accent-red: #d32f2f; 
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--heaven-silver);
+        }
+
+        /* 상단 헤더 */
+        .main-header {
+            background: linear-gradient(135deg, #fff 0%, var(--heaven-blue) 100%);
+            padding: 50px 40px;
+            text-align: center;
+            border-bottom: 3px solid var(--heaven-gold);
+        }
+
+        .main-header h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.2rem;
+            margin: 0;
+            letter-spacing: 4px;
+            color: var(--heaven-gold);
+        }
+
+        .sub-title {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        /* 섹션 공통 스타일 */
+        section { padding: 40px; border-bottom: 1px solid var(--heaven-blue); }
+        h2 { 
+            font-family: 'Noto Serif KR', serif; 
+            font-size: 1.5rem; 
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        h2::before {
+            content: "◈";
+            margin-right: 10px;
+            color: var(--heaven-gold);
+            font-size: 1rem;
+        }
+
+        /* 프로필 정보 - 이미지 삽입 */
+        .profile-wrapper { display: flex; gap: 40px; align-items: flex-start; }
+        .profile-img {
+            flex: 0 0 280px;
+            height: 380px;
+            background: #f9f9f9;
+            border: 1px solid var(--heaven-silver);
+            overflow: hidden; /* 이미지 넘침 방지 */
+            border-radius: 4px;
+        }
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지 비율 유지하며 꽉 채움 */
+            display: block;
+        }
+
+        .profile-info { flex: 1; }
+        .info-row { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        .info-row b { display: inline-block; width: 100px; color: var(--heaven-gold); }
+
+        /* 세계관 시스템 그리드 */
+        .system-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--heaven-silver);
+        }
+
+        .card h3 { font-size: 1.1rem; margin-top: 0; color: var(--heaven-gold); }
+        .card ul { padding-left: 20px; margin: 0; font-size: 0.9rem; color: var(--text-light); }
+
+        /* 사건 분류 표 */
+        .event-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .event-table th, .event-table td {
+            padding: 12px;
+            border: 1px solid var(--heaven-blue);
+            font-size: 0.9rem;
+        }
+        .event-table th { background: #fdfdfd; width: 25%; color: var(--heaven-gold); }
+
+        /* 징계 시스템 스텝 */
+        .penalty-box {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            counter-reset: step;
+        }
+        .penalty-item {
+            text-align: center;
+            flex: 1;
+            font-size: 0.8rem;
+            position: relative;
+        }
+        .penalty-item::before {
+            counter-increment: step;
+            content: counter(step);
+            display: block;
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            background: var(--heaven-silver);
+            color: white;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+        }
+        .penalty-item.active::before { background: var(--accent-red); }
+
+        /* 하단 캐릭터 카드 */
+        .char-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .char-item {
+            padding: 15px;
+            border: 1px solid var(--heaven-blue);
+            border-radius: 6px;
+        }
+        .char-name { font-weight: bold; color: var(--heaven-gold); }
+        /* 하단 버튼 */
+        .bottom-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 30px 20px;
+            background: #fff;
+        }
+
+.bottom-buttons a {
+    text-decoration: none;
+}
+
+.btn {
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border: 1px solid var(--heaven-gold);
+    transition: 0.2s;
+}
+
+.btn-play {
+    background: var(--heaven-gold);
+    color: white;
+}
+
+.btn-play:hover {
+    background: #b8934d;
+}
+
+.btn-others {
+    background: white;
+    color: var(--heaven-gold);
+}
+
+.btn-others:hover {
+    background: #f5f5f5;
+}
+        @media (max-width: 768px) {
+            .profile-wrapper, .system-grid, .char-grid { grid-template-columns: 1fr; flex-direction: column; }
+            .profile-img { width: 100%; height: 350px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="main-header">
+        <div class="sub-title">Celestial Management & Observation Log</div>
+        <h1>RAPHAEL</h1>
+        <p style="color: #7f8c8d; font-style: italic;">“수호천사의 의무는 기록보다 보호에 있습니다.”</p>
+    </header>
+
+    <section>
+        <h2>개인 식별 정보 (Angel Profile)</h2>
+        <div class="profile-wrapper">
+            <div class="profile-img">
+                <img src="https://typie.net/original-images/26/03/B/Bw/BwVlxl4uZ30qPW0Vu9AOV.jpg" alt="Raphael Image">
+            </div>
+            <div class="profile-info">
+                <div class="info-row"><b>직위</b> 치유 담당 전문 천사</div>
+                <div class="info-row"><b>소속</b> 천계 행정국 - 인간 수호 부문</div>
+                <div class="info-row"><b>현재 상태</b> 비공식 지상 체류 (규정 미준수 가능성)</div>
+                <div class="info-row"><b>주요 능력</b> 회복 촉진, 미세 통증 완화, 상태 안정화</div>
+                <div class="info-row"><b>특이사항</b> {{user}}의 전담 수호천사. 고정 사건 이후 밀착 감시 중.</div>
+                <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 20px;">
+                    냉철한 행정가보다는 '선의'에 기반한 행동가적 면모를 보임. 
+                    보호 대상인 {{user}}의 안전을 위해 천계 로그 기록을 누락시키거나 지연시키는 등 위험한 행보를 보이고 있음.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>인생의 구성 및 개입 가이드</h2>
+        <table class="event-table">
+            <tr>
+                <th>고정 사건</th>
+                <td>인생의 거대한 분기점. 천사 개입 절대 불가. (예: {{user}}의 대형 부상)</td>
+            </tr>
+            <tr>
+                <th>확률 사건</th>
+                <td>선택에 따른 변동폭. 수호천사가 미세한 확률 조작(운)으로 간섭 가능.</td>
+            </tr>
+            <tr>
+                <th>우발 사건</th>
+                <td>예측 불가능한 우연. 천계 시스템에서도 모니터링이 까다로운 영역.</td>
+            </tr>
+        </table>
+
+        <div class="system-grid" style="margin-top: 30px;">
+            <div class="card">
+                <h3>수호천사의 역할</h3>
+                <ul>
+                    <li>인간 근처 상시 대기 및 위험 감지</li>
+                    <li>작은 확률 조정 (사고 회피 등)</li>
+                    <li>활동 로그 주기적 천계 보고</li>
+                    <li><b>주의:</b> 직접적인 정체 노출 및 장기 체류 금지</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>천사의 신체 기능</h3>
+                <ul>
+                    <li><b>날개:</b> 에너지 저장 및 이동 기관</li>
+                    <li><b>후광:</b> 권한 표시 및 기적 출력 장치</li>
+                    <li><b>감정:</b> 후광의 밝기와 날개 깃털 상태에 반영</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>천계 규정 및 징계 (Discipline)</h2>
+        <div class="desc-box" style="font-size: 0.9rem; margin-bottom: 20px; color: var(--text-light); background: #fdfdfd; padding: 15px; border-radius: 5px; border: 1px solid #eee;">
+            모든 천사는 '인간 개입 제한 규정'을 따릅니다. 금전 거래, 연애 감정 개입, 기적 남용은 엄격히 금지됩니다.
+        </div>
+        <div class="penalty-box">
+            <div class="penalty-item active">경고</div>
+            <div class="penalty-item active">기적 제한</div>
+            <div class="penalty-item">전담 관리</div>
+            <div class="penalty-item">날개 봉인</div>
+            <div class="penalty-item">직위 강등</div>
+        </div>
+        <p style="text-align: center; font-size: 0.8rem; color: var(--accent-red); margin-top: 15px;">
+            * 현재 라파엘의 활동은 '로그 미등록 체류'로 감시 대상에 오를 위험이 높음.
+        </p>
+    </section>
+
+    <section>
+        <h2>주요 관계자 (Personnel)</h2>
+        <div class="char-grid">
+            <div class="char-item">
+                <div class="char-name">미카엘 (전투/고위)</div>
+                <div class="char-tag" style="font-size: 0.8rem;">210cm, 백금발, 냉금안</div>
+                <p style="font-size: 0.8rem; margin: 5px 0;">규율 그 자체. 위반 시 즉각 처분 집행.</p>
+            </div>
+            <div class="char-item">
+                <div class="char-name">유리엘 (기록/지식)</div>
+                <div class="char-tag" style="font-size: 0.8rem;">185cm, 장금발, 안경</div>
+                <p style="font-size: 0.8rem; margin: 5px 0;">관찰자. 인간의 문화를 데이터로 분석.</p>
+            </div>
+            <div class="char-item">
+                <div class="char-name">카시엘 (감시/감사)</div>
+                <div class="char-tag" style="font-size: 0.8rem;">190cm, 은발, 벽안</div>
+                <p style="font-size: 0.8rem; margin: 5px 0;">로그 검사관. 감정 없는 행정 처리의 정점.</p>
+            </div>
+            <div class="char-item" style="border-color: #ddd; background: #fefefe;">
+                <div class="char-name">세라피엘 (수호/좌천)</div>
+                <div class="char-tag" style="font-size: 0.8rem;">200cm, 장백발, 흑안</div>
+                <p style="font-size: 0.8rem; margin: 5px 0;">규정 위반자. 인간계에서 라면과 게임에 몰두 중.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="bottom-buttons">
+    <a href="https://rofan.ai/character/39c37041-f0e3-47c8-932e-f797ebca765e" target="_blank">
+        <button class="btn btn-play">PLAY</button>
+    </a>
+    <a href="index.html">
+        <button class="btn btn-others">OTHERS</button>
+    </a>
+</div>
+    
+    <footer style="padding: 20px; text-align: center; background: var(--heaven-blue); font-size: 0.75rem; color: #94a3b8;">
+        THIS DOCUMENT IS ENCRYPTED BY CELESTIAL ADMINISTRATION OFFICE.
+    </footer>
+</div>
+
+</body>
+</html>
