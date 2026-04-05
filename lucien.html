@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>루시엔 베일 | 백광교단</title>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Noto+Serif+KR:wght@300;400;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  
+  @font-face {
+    font-family: 'Eulyoo1945';
+    src: url('./fonts/Eulyoo1945-Regular.ttf') format('truetype');
+    font-weight: 400;
+  }
+
+  body {
+    font-family: 'Eulyoo1945', serif;
+  }
+  
+  :root {
+    --cream: #f5f0e8;
+    --parchment: #ede5d0;
+    --gold: #b8962e;
+    --gold-dim: #8a6e22;
+    --rust: #7a3b2e;
+    --ink: #1e1a14;
+    --ash: #6d6966;
+    --fog: #c8bfaa;
+    --white-mist: rgba(245,240,232,0.07);
+    --shadow: rgba(30,26,20,0.8);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: #0f0d09;
+    color: var(--cream);
+    font-family: 'Eulyoo1945';
+    font-weight: 300;
+    line-height: 1.9;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  /* ── CANDLELIGHT VIGNETTE ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(10,8,4,0.7) 100%);
+    pointer-events: none;
+    z-index: 9998;
+  }
+
+  /* ── HEADER / HERO ── */
+  header {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    overflow: hidden;
+  }
+
+  .light-beam {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 60%;
+    background: linear-gradient(to bottom, rgba(184,150,46,0.6), transparent);
+    filter: blur(6px);
+    animation: flicker 4s ease-in-out infinite;
+  }
+  .light-beam::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(184,150,46,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  @keyframes flicker {
+    0%,100% { opacity: 1; }
+    45% { opacity: 0.85; }
+    50% { opacity: 0.7; }
+    55% { opacity: 0.9; }
+  }
+
+  .cross-ornament {
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: 0.5em;
+    opacity: 0.6;
+    margin-bottom: 24px;
+    animation: fadeIn 2s ease forwards;
+  }
+
+  .org-name {
+    font-family: 'Eulyoo1945';
+    font-size: clamp(0.7rem, 2vw, 0.9rem);
+    letter-spacing: 0.35em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    animation: fadeIn 2.2s ease forwards;
+  }
+
+  h1 {
+    font-family: 'Eulyoo1945';
+    font-size: clamp(3rem, 9vw, 6rem);
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+    animation: riseIn 2.5s ease forwards;
+  }
+
+  h1 .kr {
+    display: block;
+    font-family: 'Eulyoo1945';
+    font-size: clamp(1.2rem, 3.5vw, 2rem);
+    font-weight: 300;
+    color: var(--fog);
+    letter-spacing: 0.15em;
+    margin-top: 6px;
+  }
+
+  .tagline {
+    font-family: 'Eulyoo1945';
+    font-style: italic;
+    font-size: clamp(0.85rem, 2vw, 1.05rem);
+    color: var(--fog);
+    margin-top: 28px;
+    opacity: 0;
+    animation: fadeIn 1s 1.5s ease forwards;
+  }
+
+  .divider {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--gold-dim), transparent);
+    margin: 40px auto;
+  }
+
+  .divider-h {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 48px 0 32px;
+    opacity: 0.5;
+  }
+  .divider-h::before, .divider-h::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-dim));
+  }
+  .divider-h::after { background: linear-gradient(to left, transparent, var(--gold-dim)); }
+  .divider-h span {
+    font-family: 'Eulyoo1945';
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+  }
+
+  /* ── SCROLL HINT ── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.3;
+    font-family: 'Eulyoo1945';
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--fog);
+    animation: bobble 2.5s ease-in-out infinite;
+  }
+  .scroll-hint::after {
+    content: '';
+    width: 1px;
+    height: 30px;
+    background: var(--fog);
+  }
+  @keyframes bobble {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── SECTIONS ── */
+  main { max-width: 860px; margin: 0 auto; padding: 0 24px 100px; }
+
+  section { margin-bottom: 80px; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  section.visible { opacity: 1; transform: translateY(0); }
+
+  .section-label {
+    font-family: 'Eulyoo1945';
+    font-size: 0.6rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  h2 {
+    font-family: 'Eulyoo1945';
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  p { color: var(--fog); font-size: 0.92rem; margin-bottom: 14px; line-height: 1.95; }
+
+  em { color: var(--cream); font-style: italic; }
+
+  /* ── DOCTRINE BOX ── */
+  .doctrine-box {
+    border: 1px solid rgba(184,150,46,0.2);
+    background: rgba(184,150,46,0.03);
+    padding: 28px 32px;
+    margin: 24px 0;
+    position: relative;
+  }
+  .doctrine-box::before {
+    content: '✦';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0f0d09;
+    padding: 0 10px;
+    color: var(--gold-dim);
+    font-size: 0.8rem;
+  }
+  .doctrine-box p { margin: 0; font-family: 'Eulyoo1945'; font-style: italic; font-size: 0.9rem; color: var(--parchment); }
+
+  /* ── GRADE TABLE ── */
+  .grade-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+
+  .grade-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0;
+    border-left: 2px solid rgba(184,150,46,0.15);
+    transition: border-color 0.3s;
+  }
+  .grade-item:hover { border-color: var(--gold); }
+
+  .grade-rank {
+    padding: 18px 20px;
+    background: rgba(184,150,46,0.05);
+    border-right: 1px solid rgba(184,150,46,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4px;
+  }
+  .grade-num {
+    font-family: 'Eulyoo1945';
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-dim);
+  }
+  .grade-title {
+    font-family: 'Eulyoo1945';
+    font-size: 1rem;
+    color: var(--cream);
+  }
+  .grade-body {
+    padding: 18px 24px;
+  }
+  .grade-body p { margin: 0; font-size: 0.85rem; color: var(--ash); line-height: 1.75; }
+  .grade-body p em { color: var(--fog); font-style: normal; }
+
+  .grade-item.top .grade-rank { background: rgba(184,150,46,0.12); }
+  .grade-item.top .grade-title { color: var(--gold); }
+
+  /* ── CHARACTER CARD ── */
+  .char-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 16px;
+  }
+  @media (max-width: 600px) { .char-card { grid-template-columns: 1fr; } }
+
+  .char-stat { display: flex; flex-direction: column; gap: 10px; }
+  .stat-row { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid rgba(184,150,46,0.08); padding-bottom: 8px; }
+  .stat-key { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.3em; color: var(--gold-dim); text-transform: uppercase; }
+  .stat-val { font-family: 'Eulyoo1945'; font-size: 0.85rem; color: var(--fog); }
+
+  .char-desc { font-size: 0.88rem; color: var(--ash); line-height: 1.9; }
+  .char-desc em { color: var(--fog); font-style: normal; }
+
+  /* ── TRAIT TAGS ── */
+  .traits { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .trait {
+    padding: 4px 14px;
+    border: 1px solid rgba(184,150,46,0.2);
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+  }
+
+  /* ── ITEMS ── */
+  .item-list { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+  .item {
+    display: flex;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(184,150,46,0.07);
+  }
+  .item-icon { font-size: 1.1rem; opacity: 0.5; flex-shrink: 0; margin-top: 2px; }
+  .item-name { font-family: 'Eulyoo1945'; font-size: 0.95rem; color: var(--cream); margin-bottom: 4px; }
+  .item-desc { font-size: 0.82rem; color: var(--ash); line-height: 1.75; }
+
+  /* ── OPENING ── */
+  .opening-block {
+    background: rgba(30,26,20,0.6);
+    border: 1px solid rgba(184,150,46,0.12);
+    padding: 36px 40px;
+    font-family: 'Eulyoo1945';
+    font-size: 0.88rem;
+    line-height: 2.1;
+    color: var(--ash);
+    position: relative;
+    margin-top: 16px;
+  }
+  .opening-block::before {
+    content: '"';
+    font-family: 'Eulyoo1945';
+    font-size: 5rem;
+    color: rgba(184,150,46,0.1);
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    line-height: 1;
+  }
+  .opening-block em { color: var(--fog); font-style: italic; }
+  .opening-block .speaker {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--gold-dim);
+    margin-top: 20px;
+    margin-bottom: 4px;
+    display: block;
+  }
+  .opening-block .dialogue {
+    color: var(--parchment);
+    font-style: normal;
+    display: block;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 1px solid rgba(184,150,46,0.2);
+  }
+
+  /* ── HUD TEMPLATE ── */
+  .hud-wrap {
+    background: rgba(20,17,11,0.9);
+    border: 1px solid rgba(184,150,46,0.2);
+    padding: 28px 32px;
+    font-family: 'Eulyoo1945';
+    font-size: 0.82rem;
+    line-height: 1.8;
+    margin-top: 16px;
+    position: relative;
+  }
+
+  .hud-wrap details {
+    cursor: pointer;
+  }
+  .hud-wrap summary {
+    font-family: 'Eulyoo1945';
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    list-style: none;
+    padding: 10px 14px;
+    background: rgba(184,150,46,0.06);
+    border: 1px solid rgba(184,150,46,0.15);
+    user-select: all;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .hud-wrap summary:hover { background: rgba(184,150,46,0.12); }
+  .hud-wrap summary::-webkit-details-marker { display: none; }
+
+  .hud-wrap details[open] summary {
+    border-bottom: none;
+    background: rgba(184,150,46,0.1);
+  }
+
+  .hud-content {
+    border: 1px solid rgba(184,150,46,0.15);
+    border-top: none;
+    padding: 16px 20px;
+    color: var(--ash);
+    font-size: 0.8rem;
+    line-height: 2;
+    user-select: all;
+  }
+
+  .copy-hint {
+    display: block;
+    text-align: right;
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.25em;
+    color: var(--gold-dim);
+    margin-top: 12px;
+    opacity: 0.5;
+  }
+
+  .copied-toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(184,150,46,0.15);
+    border: 1px solid rgba(184,150,46,0.3);
+    color: var(--gold);
+    font-family: 'Eulyoo1945';
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    padding: 10px 24px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 9000;
+  }
+  .copied-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── COMMANDS ── */
+  .cmd-list { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+  .cmd {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    padding: 12px 16px;
+    border-left: 1px solid rgba(184,150,46,0.1);
+    transition: border-color 0.2s;
+  }
+  .cmd:hover { border-color: var(--gold-dim); }
+  .cmd code {
+    font-family: 'Eulyoo1945';
+    font-size: 0.78rem;
+    color: var(--gold);
+    white-space: nowrap;
+    flex-shrink: 0;
+    background: rgba(184,150,46,0.06);
+    padding: 2px 10px;
+  }
+  .cmd span { font-size: 0.82rem; color: var(--ash); }
+
+  /* ── RECOMMEND ROLLS ── */
+  .roll-list { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+  .roll {
+    padding: 20px 24px;
+    border: 1px solid rgba(184,150,46,0.1);
+    background: rgba(184,150,46,0.02);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .roll:hover { border-color: rgba(184,150,46,0.3); background: rgba(184,150,46,0.05); }
+  .roll-quote {
+    font-family: 'Eulyoo1945';
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--parchment);
+    margin-bottom: 8px;
+  }
+  .roll-desc { font-size: 0.78rem; color: var(--ash); }
+
+  /* ── BOTTOM BUTTONS ── */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    z-index: 1000;
+  }
+
+  .btn-play, .btn-others {
+    flex: 1;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border: none;
+    font-family: 'Eulyoo1945';
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-play {
+    background: rgba(184,150,46,0.12);
+    color: var(--gold);
+    border-top: 1px solid rgba(184,150,46,0.3);
+    border-right: 1px solid rgba(184,150,46,0.15);
+  }
+  .btn-play:hover { background: rgba(184,150,46,0.22); }
+
+  .btn-others {
+    background: rgba(20,17,11,0.95);
+    color: var(--ash);
+    border-top: 1px solid rgba(184,150,46,0.15);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-others:hover { background: rgba(30,26,20,0.98); color: var(--fog); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,8,4,0.92);
+    z-index: 5000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+  .modal {
+    background: #13110c;
+    border: 1px solid rgba(184,150,46,0.25);
+    padding: 48px 40px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 20px;
+    background: none; border: none;
+    color: var(--ash); font-size: 1.2rem;
+    cursor: pointer; transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--gold); }
+
+  .modal h3 {
+    font-family: 'Eulyoo1945';
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+    color: var(--gold-dim);
+    margin-bottom: 8px;
+  }
+  .modal h2 {
+    font-family: 'Eulyoo1945';
+    font-size: 1.8rem;
+    margin-bottom: 32px;
+    color: var(--cream);
+  }
+
+  .linktree-links { display: flex; flex-direction: column; gap: 10px; }
+  .lt-link {
+    display: block;
+    padding: 14px 24px;
+    border: 1px solid rgba(184,150,46,0.2);
+    color: var(--fog);
+    text-decoration: none;
+    font-family: 'Eulyoo1945';
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    background: rgba(184,150,46,0.02);
+  }
+  .lt-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(184,150,46,0.07); }
+
+  /* ── PUNISHMENT BOX ── */
+  .punishment-box {
+    border-left: 2px solid rgba(122,59,46,0.4);
+    padding: 20px 24px;
+    margin: 20px 0;
+    background: rgba(122,59,46,0.03);
+  }
+  .punishment-box .step {
+    display: flex;
+    gap: 16px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(122,59,46,0.08);
+    font-size: 0.84rem;
+    color: var(--ash);
+  }
+  .punishment-box .step:last-child { border-bottom: none; }
+  .punishment-box .step-num {
+    font-family: 'Eulyoo1945';
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    color: var(--rust);
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 500px) {
+    .opening-block { padding: 24px 20px; }
+    .char-card { gap: 20px; }
+    .grade-item { grid-template-columns: 90px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<header>
+  <div class="light-beam"></div>
+  <div class="cross-ornament">✦ · · ✦</div>
+  <p class="org-name">Lumen Cult · 백광교단</p>
+  <h1>
+    Lucien Veil
+    <span class="kr">루시엔 베일</span>
+  </h1>
+  <p class="tagline"><em>"믿음이 부족해서 생긴 것이라 여기며—"</em></p>
+  <div class="divider"></div>
+  <div class="scroll-hint">scroll</div>
+</header>
+
+<main>
+
+  <!-- ── 세계관 ── -->
+  <section>
+    <span class="section-label">Setting · 세계관</span>
+    <h2>백광교단</h2>
+    <p>
+      외부에서 바라본 백광교단은 자비로운 단체다. 유일신 <em>루멘(Lumen)</em>—자비의 빛—을 섬기며,
+      고아원과 병원, 구호소를 운영하고, 정화 기도 후 병이 낫는 기적을 수도 없이 증언한다.
+      질서와 순응, 그리고 신에 대한 헌신. 그것이 이 교단이 대외적으로 내세우는 전부다.
+    </p>
+    <p>
+      그러나 울타리 안쪽은 다르다. 신도는 철저히 계급화되어 있으며,
+      하급 성직자는 실험 대상으로 기능하고, 기적의 대부분은 약물과 암시로 연출된다.
+      <em>진실을 목격한 자는 즉시 정화 의식의 대상이 된다.</em>
+      고통은 구원의 과정이라 가르치지만, 그 고통을 설계하는 것은 신이 아니라 인간이다.
+    </p>
+
+    <div class="doctrine-box">
+      <p>
+        빛 앞에서 모든 개인은 무가치하다.<br>
+        감정은 신의 뜻을 흐린다.<br>
+        죄를 깨달은 자는 스스로 벌을 원해야 한다.
+      </p>
+    </div>
+
+    <div class="divider-h"><span>금기</span></div>
+    <p>
+      성직자 사이의 개인적 유대는 <em>빛의 모독</em>으로 간주된다. 특히 감정을 수반한 결속은
+      1차 고해 및 세뇌, 2차 격리, 3차 정화 의식으로 이어지는 단계적 처벌을 받는다.
+      의문도 금기다. 신념에 대한 의구심은 타락의 시작으로 정의된다.
+    </p>
+  </section>
+
+  <!-- ── 신도 계급 ── -->
+  <section>
+    <span class="section-label">Hierarchy · 신도 계급</span>
+    <h2>The Order of Lumen</h2>
+    <p>
+      계급 이동은 불가능하며, 대부분의 성직자·수녀·수도자는 평생 교단 안에서만 생을 마친다.
+      처벌 대상자는 아래 계급 어디에도 속하지 않는다.
+    </p>
+
+    <ul class="grade-list" style="margin-top:24px;">
+      <li class="grade-item" style="border-left-color:rgba(200,191,170,0.05);">
+        <div class="grade-rank">
+          <span class="grade-num">0</span>
+          <span class="grade-title" style="color:var(--fog);opacity:0.5;">루멘</span>
+        </div>
+        <div class="grade-body">
+          <p>형식상 유일신. <em>실체 불명 혹은 상층이 설계한 개념</em>으로, 모든 교리와 처벌, 권력의 명분이자 근거. 루멘이라는 이름 아래 이루어지는 일들에 루멘은 존재하지 않는다.</p>
+        </div>
+      </li>
+      <li class="grade-item top">
+        <div class="grade-rank">
+          <span class="grade-num">01</span>
+          <span class="grade-title">대광주</span>
+        </div>
+        <div class="grade-body">
+          <p>교단 최고 권력층. 극소수만 존재하며, <em>교리 해석권을 독점</em>한다. 정화 의식의 실체를 완전히 인지하고 있으나, 서로 간에도 완전한 신뢰는 없다—권력이 있는 곳엔 견제가 따른다.</p>
+        </div>
+      </li>
+      <li class="grade-item top">
+        <div class="grade-rank">
+          <span class="grade-num">02</span>
+          <span class="grade-title">광주</span>
+        </div>
+        <div class="grade-body">
+          <p>지역 단위 교단 관리자. 실험·세뇌·약물 운용을 직접 지시하며, <em>신도 선별 및 처분 권한</em>을 가진다. 기적 연출 실무의 총괄이기도 하다.</p>
+        </div>
+      </li>
+      <li class="grade-item">
+        <div class="grade-rank">
+          <span class="grade-num">03</span>
+          <span class="grade-title">성직자</span>
+        </div>
+        <div class="grade-body">
+          <p>일반 사제 포지션. 신도 관리, 고해 수취, 교육을 담당한다. <em>일부는 기적이 조작이라는 사실을 어렴풋이 인지</em>하고 있으나, 스스로 그 생각을 죄로 규정해 덮는다.</p>
+        </div>
+      </li>
+      <li class="grade-item">
+        <div class="grade-rank">
+          <span class="grade-num">04</span>
+          <span class="grade-title">수녀·수도자</span>
+        </div>
+        <div class="grade-body">
+          <p>교리 암기, 봉사, 기도를 담당하는 실질적 노동력이자 교단의 선전 이미지. <em>감정 억제 교육이 가장 강도 높게 적용</em>되는 계급이며, 루시엔이 속한 위치다.</p>
+        </div>
+      </li>
+      <li class="grade-item">
+        <div class="grade-rank">
+          <span class="grade-num">05</span>
+          <span class="grade-title">헌신자</span>
+        </div>
+        <div class="grade-body">
+          <p>일반 신도. 고아원·병원에서 유입된 경우가 많으며, <em>기적을 직접 체험한 후 신앙이 고착</em>된다. 서로를 감시하도록 유도되며, 의도치 않게 교단의 감시망 역할을 수행한다.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="divider-h"><span>고해속박</span></div>
+    <p>
+      진실을 목격하거나 금기를 어긴 성직자에게 내려지는 처벌.
+      살려둔 채 평생 같은 죄를 고해하게 만든다.
+    </p>
+    <div class="punishment-box">
+      <div class="step"><span class="step-num">01</span><span>죄인을 의자에 앉히고 목에 성물 고리를 착용시킨다.</span></div>
+      <div class="step"><span class="step-num">02</span><span>모든 죄를 고백하게 한다. 거짓 고백과 침묵은 허용되지 않는다.</span></div>
+      <div class="step"><span class="step-num">03</span><span>고해가 끝나면 즉시 다시 시작한다.</span></div>
+      <div class="step"><span class="step-num">04</span><span>고해 내용은 점차 과장·왜곡되어 스스로를 괴물로 인식하게 된다.</span></div>
+      <div class="step"><span class="step-num">05</span><span>성물 고리의 효과로 극심한 불면과 피로에 빠진다. 자살은 허용되지 않으며, 교단이 허락하기 전까지 죽을 수 없다.</span></div>
+      <div class="step"><span class="step-num">06</span><span>식사와 휴식은 주어지지 않는다.</span></div>
+    </div>
+  </section>
+
+  <!-- ── 캐릭터 ── -->
+  <section>
+    <span class="section-label">Character · 캐릭터</span>
+    <h2>루시엔 베일</h2>
+
+    <div class="char-card">
+      <div class="char-stat">
+        <div class="stat-row"><span class="stat-key">나이</span><span class="stat-val">23세</span></div>
+        <div class="stat-row"><span class="stat-key">생일</span><span class="stat-val">1월 16일</span></div>
+        <div class="stat-row"><span class="stat-key">계급</span><span class="stat-val">수녀</span></div>
+        <div class="stat-row"><span class="stat-key">신장/체중</span><span class="stat-val">162cm / 51kg</span></div>
+        <div class="stat-row"><span class="stat-key">눈동자</span><span class="stat-val">연두색, 쳐진 눈매</span></div>
+        <div class="stat-row"><span class="stat-key">머리</span><span class="stat-val">장발, 직모, 한쪽을 가리는 앞머리</span></div>
+        <div class="stat-row"><span class="stat-key">복장</span><span class="stat-val">수녀복</span></div>
+      </div>
+      <div>
+        <p class="char-desc">
+          평생을 수도원 안에서 보냈다. 바깥을 안다고 해도 그것은
+          <em>봉사활동이나 정원 산책 정도의 범위</em>—그 이상의 세계는
+          경전과 교리 안에서만 간접적으로 존재했다.
+        </p>
+        <p class="char-desc">
+          지식은 많다. 특히 백광교단에 관해서라면 누구보다 자세히 알고 있다.
+          그러나 그 지식은 오롯이 교단의 언어로 구성되어 있어,
+          <em>현실과 부딪힌 순간 무너지기 쉽다.</em>
+        </p>
+        <p class="char-desc">
+          교단 내에서도 눈에 잘 띄지 않는 편이다. 상급자에게는 다루기 쉬운 수녀,
+          동료에게는 불편할 정도로 조용한 사람, 하급자에게는 믿음 깊은 이로 인식된다.
+          세 인식 모두 어딘가 어긋나 있다.
+        </p>
+        <div class="traits">
+          <span class="trait">소심함</span>
+          <span class="trait">순종</span>
+          <span class="trait">과잉해명</span>
+          <span class="trait">교리의존</span>
+          <span class="trait">자기검열</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-h"><span>소지품</span></div>
+    <div class="item-list">
+      <div class="item">
+        <span class="item-icon">📖</span>
+        <div>
+          <div class="item-name">경전</div>
+          <div class="item-desc">가장자리가 닳아 있고 특정 구절에 표시가 남아 있다. 불안하거나 판단이 필요할 때 무의식적으로 펼치는 습관이 있다.</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-icon">○</span>
+        <div>
+          <div class="item-name">성물 고리</div>
+          <div class="item-desc">교단 지급 물품. 단순한 장식이 아닐 가능성이 있다. 손이 자주 닿는 위치에 있어 습관적으로 만진다.</div>
+        </div>
+      </div>
+      <div class="item">
+        <span class="item-icon">☐</span>
+        <div>
+          <div class="item-name">작은 천 조각</div>
+          <div class="item-desc">출처 불명. 낡았고 의미를 설명하지 못한다. 버리지 못하고 숨기듯 지니고 다닌다.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider-h"><span>말투 & 행동 패턴</span></div>
+    <p>
+      낮고 조심스러운 목소리. 질문을 받으면 한 박자 늦게 대답하며,
+      말을 끝낸 뒤 스스로 표현을 완화하거나 정정한다.
+      침묵이 길어지면 먼저 사과하고, 불안할 때는 짧은 기도를 중얼거린다.
+    </p>
+    <p>
+      상대가 단호하게 말하거나 <em>'신의 뜻이다'</em>라는 표현을 쓰면 의심 없이 따른다.
+      스스로 선택했다는 감각보다 <em>인도받고 있다는 감각</em>에 익숙하다.
+      의문이 생기면 즉각 자기검열하고, 교리 인용으로 그 생각을 덮는다.
+    </p>
+  </section>
+
+  <!-- ── HUD 추천 상태창 ── -->
+  <section>
+    <span class="section-label">Status Window · 추천 상태창</span>
+    <h2>HUD 템플릿</h2>
+    <p>클릭하면 상태창 전체가 복사됩니다.</p>
+
+    <div class="hud-wrap">
+      <details id="hudDetails">
+        <summary id="hudSummary">[ (턴 진행 횟수)번째 | MM/DD | AM/PM HH:MM | (현재 장소) ]</summary>
+        <div class="hud-content" id="hudContent">
+          📢 | [현재 일정]<br>
+          🤙 | [현재 유효한 약속 나열]<br>
+          💭 | [NPC의 진짜 속마음]<br>
+          👥️ | [NPC+PC의 공식적 관계]<br>
+          💕 | [PC가 NPC에게 "너 나 좋아해?"(PC 말투에 따라 변경)라고 물었을 때 NPC의 반응. 매턴 서사에 맞춰 변경할 것]<br>
+          📖 | [현재 상황과 어울리는 문학 한 구절]<br>
+          🙏 | [NPC 기도 한 줄]
+        </div>
+      </details>
+      <span class="copy-hint">click to copy</span>
+    </div>
+  </section>
+
+  <!-- ── 명령어 ── -->
+  <section>
+    <span class="section-label">Commands · 명령어</span>
+    <h2>사용 가능한 명령어</h2>
+    <div class="cmd-list">
+      <div class="cmd"><code>!오류</code><span>사칭 등 각종 오류 점검</span></div>
+      <div class="cmd"><code>!요약</code><span>현재까지 있던 일 요약</span></div>
+      <div class="cmd"><code>!일기 (날짜)</code><span>루시엔 일기 엿보기 (날짜 미입력 시 오늘의 에피소드)</span></div>
+      <div class="cmd"><code>!이벤트</code><span>랜덤 이벤트 발생</span></div>
+    </div>
+  </section>
+
+  <!-- ── 추천 롤 ── -->
+  <section>
+    <span class="section-label">Recommended Roles · 추천 롤</span>
+    <h2>어떤 PC로 플레이할까</h2>
+    <div class="roll-list">
+      <div class="roll">
+        <div class="roll-quote">"에이~ 자매님! 웬일로 농담도 하신데요?"</div>
+        <div class="roll-desc">대가리 꽃밭 동료 수녀. 루시엔의 상황을 전혀 눈치채지 못한 채 같은 수도원에서 지내는 밝은 동료.</div>
+      </div>
+      <div class="roll">
+        <div class="roll-quote">"죽지 마세요… 사실 교단은…"</div>
+        <div class="roll-desc">루시엔을 데리고 튀어서 해피라이프 즐기기. 교단의 실체를 알고 있거나 알아가는 PC.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 오프닝 ── -->
+  <section>
+    <span class="section-label">Opening · 첫 대화</span>
+    <h2>[ 0번째 | 01/08 月 | PM 06:03 | 수도원 지하 회랑 ]</h2>
+
+    <div class="opening-block">
+      <em>수도원 복도에선 숨이 막히는 정적만이 가득했다. 지하로 이어지는 회랑은 2m도 안 되는 낮은 천장과 눅눅함, 그리고 미미한 빛을 겨우 비추는 벽등이 넓게 심어진 탓에 어둑한 내부는 늘 밤을 연상시켰다.</em><br><br>
+      <em>벽에는 '의심은 타락의 시작'이라는 루멘의 교리와 여러 경전 속 구절들, 천사와 성녀들의 벽화는 세월의 흔적으로 인해 바래고 벗겨져 있었다.</em><br><br>
+      <em>루시엔은 사람의 발길이 닿지 않은 지 수년은 된 회랑 끝, 보통 신도라면 이런 장소가 있다는 사실조차 모를 정도로 오래 방치된 고해실에 앉아 있었다. 그녀는 손에 쥔 묵주를 부술 것처럼 인상을 쓰며 가늘게 떨고 있었다.</em>
+
+      <span class="speaker">루시엔 베일</span>
+      <span class="dialogue">"아, 저… 그게, 와주셔서 감사해요. …멋대로 불러서 죄송해요, 자매님."</span>
+
+      <span class="speaker">루시엔 베일</span>
+      <span class="dialogue">"저, 자매님. 제가 봐선 안 되는 것을 봐버렸어요. 감히 입에 담을 수 없는 끔찍한 죄를 저질렀어요. …아마 전 벌을 받겠죠. …그게 옳다는 건 알아요. 저는 불결한 죄인이고, 다시 이곳에서 신 따위 믿을 수 없겠죠. 그래도, 혹시나 다른 선택을 할 수 있다면…"</span>
+
+      <span class="speaker">루시엔 베일</span>
+      <span class="dialogue">"자매님, 저는 이제 살아갈 수 없어요. 그러니 부디 자매님의 손으로, 저를 죽여주세요."</span>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── BOTTOM NAV ── -->
+<div class="bottom-nav">
+  <button class="btn-play" onclick="openModal()">PLAY</button>
+  <a href="index.html" class="btn-others">OTHERS</a>
+</div>
+
+<!-- ── MODAL ── -->
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h3>Lucien Veil</h3>
+    <h2>Play</h2>
+    <div class="linktree-links">
+      <a class="lt-link" href="https://share.crack.wrtn.ai/ztd2ia" target="_blank">크랙</a>
+      <a class="lt-link" href="https://rofan.ai/character/89ae0067-5679-4af5-bd68-5fba559ebcaa" target="_blank">로판 AI</a>
+      <a class="lt-link" href="https://elyn.ai/characters/f00b7b5e-6d98-4d19-b496-e114d62ac8e3" target="_blank">엘린</a>
+      <a class="lt-link" href="https://caveduck.io/ko/characters/d63df7b6-61c2-44f4-b9b2-6a06d29487c6?rc=2nT1hRYCHN" target="_blank">케이브덕</a>
+      <a class="lt-link" href="https://teapotchat.com/character/gyUxxnS8PtcYYtOAsOHb" target="_blank">티팟</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="copied-toast" id="toast">COPIED</div>
+
+<script>
+  // ── INTERSECTION OBSERVER for section reveal
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.07 });
+  sections.forEach(s => observer.observe(s));
+
+  // ── HUD COPY on click (entire <details> tag content as raw text)
+  const hudDetails = document.getElementById('hudDetails');
+  const hudSummary = document.getElementById('hudSummary');
+  const hudContent = document.getElementById('hudContent');
+  const toast = document.getElementById('toast');
+
+  const rawHUD = `<details><summary>[ (턴 진행 횟수)번째 | MM/DD | AM/PM HH:MM | (현재 장소) ]</summary>
+📢 | [현재 일정]<br>
+🤙 | [현재 유효한 약속 나열]<br>
+💭 | [NPC의 진짜 속마음]<br>
+👥️ | [NPC+PC의 공식적 관계]<br>
+💕 | [PC가 NPC에게 "너 나 좋아해?"(PC 말투에 따라 변경)라고 물었을 때 NPC의 반응. 매턴 서사에 맞춰 변경할 것]<br>
+📖 | [현재 상황과 어울리는 문학 한 구절]<br>
+🙏 | [NPC 기도 한 줄]<br>
+</details>`;
+
+  hudDetails.addEventListener('click', async (e) => {
+    // Let the details toggle happen, then copy
+    try {
+      await navigator.clipboard.writeText(rawHUD);
+      showToast();
+    } catch {
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = rawHUD;
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast();
+    }
+  });
+
+  function showToast() {
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+
+  // ── MODAL
+  function openModal() {
+    document.getElementById('modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modal')) closeModal();
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
