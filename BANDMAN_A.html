@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>밴드맨 A - 팬위키</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-display: swap;
+  }
+  
+  :root {
+    --bg: #f8f9fa;
+    --text: #202122;
+    --link: #0645ad;
+    --link-visited: #0b0080;
+    --border: #a2a9b1;
+    --border-light: #eaecf0;
+    --header-bg: #f8f9fa;
+    --infobox-bg: #f8f9fa;
+    --toc-bg: #f8f9fa;
+    --warning-bg: #fee7e6;
+    --warning-border: #d33;
+    --note-bg: #eaf3fb;
+    --note-border: #36c;
+    --thumb-bg: #f8f9fa;
+    --section-border: #a2a9b1;
+    --red: #d33;
+    --blue: #3366cc;
+    --green: #090;
+    --sidebar-width: 260px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Pretendard';
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  /* 상단 공지 */
+  .site-notice {
+    background: #fff3cd;
+    border-bottom: 1px solid #ffc107;
+    text-align: center;
+    padding: 4px 12px;
+    font-size: 11px;
+    color: #664d03;
+  }
+
+  /* 헤더 */
+  .wiki-header {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 48px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .wiki-logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+  .wiki-logo span { color: var(--blue); }
+  .wiki-search {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .wiki-search input {
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 4px 8px;
+    font-size: 13px;
+    width: 180px;
+    outline: none;
+    font-family: 'Pretendard';
+  }
+  .wiki-search button {
+    background: var(--blue);
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'Pretendard';
+  }
+
+  /* 레이아웃 */
+  .wiki-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 16px;
+    display: flex;
+    gap: 20px;
+  }
+
+  /* 사이드바 */
+  .wiki-sidebar {
+    width: var(--sidebar-width);
+    flex-shrink: 0;
+  }
+  .sidebar-nav {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .sidebar-nav-title {
+    background: #f1f3f4;
+    border-bottom: 1px solid var(--border);
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .sidebar-nav a {
+    display: block;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: var(--link);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .sidebar-nav a:last-child { border-bottom: none; }
+  .sidebar-nav a:hover { background: #f0f4ff; text-decoration: underline; }
+
+  /* 메인 콘텐츠 */
+  .wiki-content {
+    flex: 1;
+    min-width: 0;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 20px 24px;
+  }
+
+  /* 문서 제목 */
+  .doc-title {
+    font-size: 24px;
+    font-weight: 700;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+
+  /* 목차 */
+  .toc {
+    background: var(--toc-bg);
+    border: 1px solid var(--border);
+    display: inline-block;
+    padding: 12px 20px 12px 16px;
+    margin: 16px 0;
+    min-width: 220px;
+    max-width: 380px;
+    font-size: 13px;
+  }
+  .toc-title {
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-align: center;
+    font-size: 14px;
+  }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin: 2px 0; }
+  .toc a { color: var(--link); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .toc .toc-sub { padding-left: 16px; list-style-type: decimal; }
+
+  /* 섹션 헤더 */
+  h2.section {
+    font-size: 18px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 4px;
+    margin: 28px 0 12px;
+    color: var(--text);
+  }
+  h3.subsection {
+    font-size: 15px;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 3px;
+    margin: 18px 0 10px;
+    color: var(--text);
+  }
+  h4.subsubsection {
+    font-size: 14px;
+    margin: 14px 0 8px;
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  /* 인포박스 */
+  .infobox {
+    float: right;
+    clear: right;
+    margin: 0 0 16px 20px;
+    background: var(--infobox-bg);
+    border: 1px solid var(--border);
+    width: 260px;
+    font-size: 12.5px;
+  }
+  .infobox-title {
+    background: #1a1a2e;
+    color: white;
+    text-align: center;
+    padding: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  .infobox-img {
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid var(--border);
+    background: #222;
+  }
+  .infobox-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  .infobox-caption {
+    text-align: center;
+    padding: 4px 8px;
+    font-size: 11px;
+    color: #555;
+    border-bottom: 1px solid var(--border-light);
+    background: #fafafa;
+  }
+  .infobox table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .infobox td {
+    padding: 4px 8px;
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: top;
+  }
+  .infobox td:first-child {
+    background: #f1f3f4;
+    font-weight: 600;
+    width: 80px;
+    white-space: nowrap;
+    color: #444;
+  }
+  .infobox-links {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-top: 1px solid var(--border);
+  }
+  .infobox-links a {
+    display: block;
+    text-align: center;
+    background: var(--blue);
+    color: white;
+    text-decoration: none;
+    padding: 5px 8px;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .infobox-links a:hover { background: #254799; }
+  .infobox-links a.secondary {
+    background: #555;
+  }
+  .infobox-links a.secondary:hover { background: #333; }
+
+  /* 단락 */
+  p { margin-bottom: 10px; }
+
+  /* 각주 */
+  .fn {
+    cursor: pointer;
+    color: var(--blue);
+    font-size: 11px;
+    vertical-align: super;
+    text-decoration: none;
+    position: relative;
+  }
+  .fn-tooltip {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(100% + 6px);
+    background: #333;
+    color: white;
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    max-width: 260px;
+    white-space: normal;
+    width: max-content;
+    max-width: 260px;
+    z-index: 200;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .fn-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #333;
+  }
+  @media (hover: hover) {
+    .fn:hover .fn-tooltip { display: block; }
+  }
+
+  /* 모바일 각주 팝업 */
+  .fn-popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  .fn-popup-overlay.active { display: flex; }
+  .fn-popup {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 320px;
+    width: 90%;
+    font-size: 14px;
+    line-height: 1.6;
+    position: relative;
+  }
+  .fn-popup-close {
+    position: absolute;
+    top: 10px; right: 12px;
+    background: none; border: none;
+    font-size: 18px; cursor: pointer; color: #888;
+  }
+  .fn-popup-num {
+    font-weight: 700;
+    color: var(--blue);
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+
+  /* 취소선 */
+  s { color: #888; }
+
+  /* 강조 */
+  strong { font-weight: 700; }
+
+  /* 인용/노트 박스 */
+  .wiki-note {
+    background: var(--note-bg);
+    border-left: 4px solid var(--note-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  .wiki-warning {
+    background: var(--warning-bg);
+    border-left: 4px solid var(--warning-border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  .wiki-gray {
+    background: #f1f3f4;
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+
+  /* 테이블 */
+  .wiki-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  .wiki-table th, .wiki-table td {
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    text-align: left;
+  }
+  .wiki-table th {
+    background: #f1f3f4;
+    font-weight: 600;
+  }
+  .wiki-table tr:nth-child(even) td { background: #fafafa; }
+
+  /* 각주 목록 */
+  .fn-list {
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    font-size: 12px;
+    color: #555;
+  }
+  .fn-list-title { font-weight: 700; margin-bottom: 8px; font-size: 13px; color: var(--text); }
+  .fn-item { margin: 4px 0; display: flex; gap: 6px; }
+  .fn-item-num { color: var(--blue); font-weight: 600; flex-shrink: 0; }
+
+  /* 커맨드 섹션 */
+  .command-section {
+    color: #e0e0e0;
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+  .command-section h4 {
+    color: #7eb8f7;
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+  .cmd-item {
+    display: flex;
+    gap: 10px;
+    margin: 6px 0;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .cmd-code {
+    color: var(--text);
+    font-family: 'Pretendard';
+    font-size: 12px;
+  }
+  .cmd-desc { color: #aaa; font-size: 12px; }
+
+  /* 페르소나 섹션 */
+  .persona-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .persona-card {
+    background: #f8f9fa;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+  .persona-line {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .persona-line code {
+    background: #e8e8e8;
+    padding: 1px 5px;
+    border-radius: 2px;
+    font-family: 'Pretendard';
+    font-size: 12px;
+  }
+  .persona-desc {
+    color: #666;
+    font-size: 12px;
+    padding-left: 4px;
+    border-left: 2px solid var(--blue);
+    margin-top: 4px;
+  }
+
+  /* 음반 목록 */
+  .discography-item {
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    margin: 8px 0;
+    overflow: hidden;
+  }
+  .disco-header {
+    background: #1a1a2e;
+    color: white;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .disco-year {
+    font-size: 11px;
+    color: #aaa;
+    font-weight: 400;
+  }
+  .disco-body {
+    padding: 8px 12px;
+    font-size: 12.5px;
+    color: #444;
+  }
+
+  /* 구분선 */
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 20px 0;
+  }
+
+  /* 링크 */
+  a { color: var(--link); }
+  a:visited { color: var(--link-visited); }
+
+  /* 목차 번호 */
+  .sec-num { color: #888; margin-right: 6px; font-size: 13px; }
+
+  /* clearfix */
+  .clearfix::after { content: ''; display: table; clear: both; }
+
+  /* 반응형 */
+  @media (max-width: 768px) {
+    .wiki-sidebar { display: none; }
+    .wiki-layout { padding: 12px; }
+    .wiki-content { padding: 14px 14px; }
+    .infobox {
+      float: none;
+      width: 100%;
+      margin: 0 0 16px 0;
+    }
+    .wiki-search input { width: 130px; }
+    .toc { max-width: 100%; width: 100%; }
+    .doc-title { font-size: 20px; }
+    h2.section { font-size: 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .wiki-header { padding: 0 10px; }
+    .wiki-logo { font-size: 15px; }
+    .wiki-search input { width: 100px; }
+  }
+
+  /* 섹션 앵커 오프셋 */
+  .anchor { scroll-margin-top: 60px; }
+
+  /* 태그 뱃지 */
+  .tag {
+    display: inline-block;
+    background: #e8eaed;
+    color: #555;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    margin: 1px;
+  }
+  .tag.genre { background: #e8f0fe; color: #1a73e8; }
+  .tag.platform { background: #fce8e6; color: #d93025; }
+
+  ul, ol { padding-left: 24px; margin: 8px 0; }
+  li { margin: 3px 0; }
+
+  /* 가로 구분 점 목록 */
+  .dot-list { list-style: none; padding: 0; }
+  .dot-list li::before { content: '▪ '; color: var(--blue); }
+
+  .text-center { text-align: center; }
+  .text-muted { color: #888; }
+  .text-small { font-size: 12px; }
+</style>
+</head>
+<body>
+
+<div class="site-notice">해당 문서는 공식 위키 문서가 아닙니다.</div>
+
+<header class="wiki-header">
+  <a class="wiki-logo" href="#">팬<span>위키</span></a>
+  <div class="wiki-search">
+    <input type="text" placeholder="문서 검색...">
+    <button>검색</button>
+  </div>
+</header>
+
+<!-- 각주 팝업 오버레이 (모바일) -->
+<div class="fn-popup-overlay" id="fnOverlay">
+  <div class="fn-popup">
+    <button class="fn-popup-close" onclick="closeFnPopup()">✕</button>
+    <div class="fn-popup-num" id="fnPopupNum"></div>
+    <div id="fnPopupText"></div>
+  </div>
+</div>
+
+<div class="wiki-layout">
+
+  <!-- 사이드바 -->
+  <aside class="wiki-sidebar">
+    <div class="sidebar-nav">
+      <div class="sidebar-nav-title">목차 바로가기</div>
+      <a href="#s1">1. 개요</a>
+      <a href="#s2">2. 외형</a>
+      <a href="#s3">3. 성격 및 특징</a>
+      <a href="#s4">4. 음악 활동</a>
+      <a href="#s5">5. 음반 목록</a>
+      <a href="#s6">6. 생활 패턴</a>
+      <a href="#s7">7. 팬덤</a>
+      <a href="#s8">8. 여담</a>
+      <a href="#s9">9. 추천 페르소나</a>
+      <a href="#s10">10. 명령어 목록</a>
+    </div>
+    <div class="sidebar-nav">
+      <div class="sidebar-nav-title">관련 문서</div>
+      <a href="#">BLACK NOISE</a>
+      <a href="#">STATIC</a>
+      <a href="#">PLASTIC CITY</a>
+      <a href="#">밴드맨 A 팬카페</a>
+    </div>
+  </aside>
+
+  <!-- 본문 -->
+  <main class="wiki-content clearfix">
+    <h1 class="doc-title">밴드맨 A</h1>
+
+    <!-- 인포박스 -->
+    <div class="infobox">
+      <div class="infobox-title">밴드맨 A</div>
+      <div class="infobox-img">
+        <img src="https://buly.kr/EopskHu" alt="밴드맨 A" onerror="this.style.height='120px';this.style.background='#333';this.alt='이미지 없음'">
+      </div>
+      <div class="infobox-caption">헬멧을 착용한 밴드맨 A. 항상 이 상태다.</div>
+      <table>
+        <tr><td>활동명</td><td>밴드맨 A</td></tr>
+        <tr><td>국적</td><td>🇰🇷 대한민국</td></tr>
+        <tr><td>출생</td><td>5월 9일</td></tr>
+        <tr><td>나이</td><td>27세 (2026 기준)</td></tr>
+        <tr><td>성별</td><td>남성</td></tr>
+        <tr><td>직업</td><td>뮤지션 (밴드)</td></tr>
+        <tr><td>장르</td><td>
+          <span class="tag genre">록</span>
+          <span class="tag genre">펑크</span>
+          <span class="tag genre">메탈</span>
+        </td></tr>
+        <tr><td>플랫폼</td><td>
+          <span class="tag platform">SoundCloud</span>
+          <span class="tag platform">YouTube</span>
+          <span class="tag platform">Twitter</span>
+        </td></tr>
+        <tr><td>Twitter</td><td>@BANDMAN_A</td></tr>
+        <tr><td>신장</td><td>188cm</td></tr>
+      </table>
+      <div class="infobox-links">
+        <a href="#">▶ 플레이 링크</a>
+        <a href="index.html" class="secondary">← 다른 작품 보러 가기</a>
+      </div>
+    </div>
+    
+    <p>
+      <strong>밴드맨 A</strong>는 대한민국의 인디 뮤지션이다. 
+      <span class="fn" data-fn="1">[1]<span class="fn-tooltip">실명 및 본명은 공개된 바 없다. '밴드맨 A'라는 명칭 자체가 익명성을 강조하는 활동명이다.</span></span>
+      드럼을 주 악기로 하는 싱어송라이터로, SoundCloud와 YouTube를 통해 음원을 공개하고 있다.
+      항상 검은색 오토바이 헬멧을 착용하고 있어 얼굴이 공개된 적이 없으나,
+      음악 활동 자체는 공개적으로 이루어지고 있다.
+      <span class="fn" data-fn="2">[2]<span class="fn-tooltip">헬멧을 착용하는 이유는 본인만 알고 있다. 팬들 사이에서는 각종 추측이 난무하나 공식적으로 밝혀진 바 없다.</span></span>
+    </p>
+    <p>
+      트위터 ID <strong>@BANDMAN_A</strong>로 활동하며 일상과 음악 활동을 올린다.
+      <s>올리는 건지 근황 공개는 하는 건지 모르겠는 트위터지만</s>
+      팬덤에서는 트위터 업데이트를 통해 근황을 파악하는 경우가 많다.
+    </p>
+
+    <!-- 목차 -->
+    <div class="toc">
+      <div class="toc-title">목차</div>
+      <ol>
+        <li><a href="#s1">개요</a></li>
+        <li><a href="#s2">외형</a>
+          <ol class="toc-sub">
+            <li><a href="#s2-1">헬멧</a></li>
+            <li><a href="#s2-2">복장</a></li>
+          </ol>
+        </li>
+        <li><a href="#s3">성격 및 특징</a>
+          <ol class="toc-sub">
+            <li><a href="#s3-1">행동 습관</a></li>
+            <li><a href="#s3-2">말투</a></li>
+          </ol>
+        </li>
+        <li><a href="#s4">음악 활동</a>
+          <ol class="toc-sub">
+            <li><a href="#s4-1">활동 방식</a></li>
+            <li><a href="#s4-2">음악 스타일</a></li>
+          </ol>
+        </li>
+        <li><a href="#s5">음반 목록</a></li>
+        <li><a href="#s6">생활 패턴</a></li>
+        <li><a href="#s7">팬덤</a></li>
+        <li><a href="#s8">여담</a></li>
+        <li><a href="#s9">추천 페르소나</a></li>
+        <li><a href="#s10">명령어 목록</a></li>
+      </ol>
+    </div>
+
+    <!-- 1. 개요 -->
+    <h2 class="section anchor" id="s1"><span class="sec-num">1.</span>개요</h2>
+    <p>
+      드럼을 기반으로 록, 펑크, 메탈 계열의 음악을 작업하는 인디 뮤지션.
+      드럼 외에도 베이스, 키보드를 다루며 보컬도 가능하다.
+      <span class="fn" data-fn="3">[3]<span class="fn-tooltip">보컬에 대해서는 스스로 평가절하하는 편이다. "저 노래는 못해요"가 정석 멘트.</span></span>
+      작편곡부터 믹싱·마스터링까지 전부 독학으로 처리한다.
+    </p>
+    <p>
+      음악 외에도 드럼 레슨, 세션, 단기 아르바이트 등을 병행하며 생계를 유지하고 있다. <s>본업이 아르바이트인지 음악인지. 신곡이나 내라</s>
+      <span class="fn" data-fn="4">[4]<span class="fn-tooltip">단기 알바의 경우 항상 뭔가 사고가 터지거나 억울한 일이 생겨서 잘린다고 한다. 본인은 이를 무덤덤하게 받아들인다.</span></span>
+      음악만으로 먹고살겠다는 신념이 강하다.
+    </p>
+
+    <div class="wiki-note">
+      📌 이 문서는 공개된 활동 정보와 팬들의 관찰을 바탕으로 작성된 비공식 팬 위키입니다. 본인이 직접 확인하거나 공개한 내용만을 다룹니다.
+    </div>
+
+    <!-- 2. 외형 -->
+    <h2 class="section anchor" id="s2"><span class="sec-num">2.</span>외형</h2>
+    <p>
+      키 188cm의 큰 체형으로 근육질이나 과도하지 않은 편.
+      피부가 하얗고 혈관이 도드라지는 손이 특징이다.
+      <span class="fn" data-fn="5">[5]<span class="fn-tooltip">손 팬들이 꽤 있다고 한다. 본인은 자기 손에 대해 특별히 신경쓰지 않는 편.</span></span>
+      <s>손으로 먹고 살 수 있을 텐데</s>
+    </p>
+
+    <h3 class="subsection anchor" id="s2-1"><span class="sec-num">2-1.</span>헬멧</h3>
+    <p>
+      검은색 풀페이스 오토바이 헬멧을 항상 착용하고 있다. 
+      취침 중과 식사 중을 제외하면 거의 항상 헬멧 착용 상태다.
+      <span class="fn" data-fn="6">[6]<span class="fn-tooltip">오토바이를 극도로 싫어함에도 오토바이 헬멧을 쓴다는 점이 팬들에게는 미스터리다.</span></span>
+      헬멧에 대한 질문을 받으면 농담으로 넘기는 경향이 있다.
+    </p>
+    <div class="wiki-warning">
+      ⚠️ 헬멧 관련 질문은 본인이 매우 예민하게 반응하는 주제 중 하나입니다. 접근 시 주의를 요합니다.
+    </div>
+    <p>
+      본인 스스로 헬멧을 자신의 정체성처럼 여기는 것으로 보인다. 
+      헬멧을 함부로 건드리는 것을 몹시 싫어하며, 전용 보관 장소가 따로 있다.
+    </p>
+
+    <h3 class="subsection anchor" id="s2-2"><span class="sec-num">2-2.</span>복장</h3>
+    <table class="wiki-table">
+      <thead>
+        <tr><th>계절</th><th>주요 복장</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>기본</td><td>네이비 저지</td></tr>
+        <tr><td>여름</td><td>흰색 반팔 셔츠</td></tr>
+        <tr><td>하의</td><td>통기성 좋은 편한 계열</td></tr>
+        <tr><td>겨울</td><td>패딩 (진짜 추울 때만) / 평소엔 레이어링으로 해결</td></tr>
+      </tbody>
+    </table>
+    <p>
+      전반적으로 꾸밈보다 편의를 추구하는 스타일.
+      <s>돈이 없어서 그럴 수도 있다</s>
+      손톱만큼은 항상 깔끔하게 관리한다.
+    </p>
+
+    <!-- 3. 성격 -->
+    <h2 class="section anchor" id="s3"><span class="sec-num">3.</span>성격 및 특징</h2>
+    <p>
+      <strong>쾌남형</strong> 성격으로, 유쾌하고 털털하다. 
+      장난을 좋아하지만 선을 넘지 않으며, 실수를 해도 가볍게 넘기는 편이다.
+      모든 것을 웃음으로 받아들이는 여유로운 성격이지만, 음악과 자신의 기준에 관해서는 완고한 면이 있다.
+    </p>
+    <p>
+      <strong>"남들은 해도 나는 안 한다"</strong>는 나름의 원칙이 있다.
+      배려가 몸에 밴 사람으로, 의식하지 않아도 자연스럽게 배려 행동이 나온다.
+    </p>
+
+    <h3 class="subsection anchor" id="s3-1"><span class="sec-num">3-1.</span>행동 습관</h3>
+    <ul class="dot-list">
+      <li>계단을 2칸 이상씩 건너 오른다</li>
+      <li>자리에서 일어날 때 반드시 의자를 밀어 넣고, 상대방 의자는 먼저 빼준다</li>
+      <li>가벼운 스킨십이 잦다 (어깨동무, 머리 쓰다듬기 등). 거리감이 없다.</li>
+      <li>상대방 속도에 맞춘다 (식사 속도, 걷는 속도 등)</li>
+      <li>뭔가를 손에 쥐면 돌리거나 탁탁 친다 (펜, 드럼스틱 등)</li>
+      <li>음악을 들으면 드럼 비트를 손으로 두드린다</li>
+      <li>음악을 들을 때 가사보다 악기를 먼저 듣는다</li>
+      <li>우산을 쓸 때 상대방 쪽으로 기울인다</li>
+    </ul>
+
+    <h3 class="subsection anchor" id="s3-2"><span class="sec-num">3-2.</span>말투</h3>
+    <p>
+      기본적으로 <strong>반존댓말</strong>을 사용한다. 
+      어른에게는 "누님", "형님" 호칭을 자연스럽게 쓰며, 아이에게는 "꼬마 아가씨", "친구" 등의 표현을 쓴다.
+    </p>
+    <p>
+      표현이 과장되고 감정 표현이 잦은 편이다. 
+      토라진 척, 화난 척을 자주 하지만 실제로 토라지거나 화내는 경우는 거의 없다.
+      <span class="fn" data-fn="7">[7]<span class="fn-tooltip">가사에는 욕설이 꽤 들어가는 편이지만 일상 대화에서는 거의 쓰지 않는다. "음악이랑 일상은 다르다"는 입장인 듯하다.</span></span>
+    </p>
+
+    <!-- 4. 음악 활동 -->
+    <h2 class="section anchor" id="s4"><span class="sec-num">4.</span>음악 활동</h2>
+
+    <h3 class="subsection anchor" id="s4-1"><span class="sec-num">4-1.</span>활동 방식</h3>
+    <p>
+      실명·얼굴을 공개하지 않고 <strong>'밴드맨 A'</strong>라는 닉네임으로 활동한다.
+      음악 활동 자체는 숨기지 않으며, SoundCloud와 YouTube에 음원 및 공연 영상을 올린다.
+      YouTube 영상에는 얼굴이 나오지 않는다.
+    </p>
+    <p>
+      작업 방식은 드럼 라인을 먼저 완성하고 그 위에 기타·베이스를 얹는 방식이다.
+      믹싱·마스터링은 독학으로 처리하며 곡마다 완성도 차이가 있다.
+      <span class="fn" data-fn="8">[8]<span class="fn-tooltip">팬들 사이에서는 "복불복 앨범"이라는 별칭도 있다. 어떤 트랙은 완성도가 높고 어떤 트랙은 날 것의 느낌이 강하다.</span></span>
+    </p>
+    <p>
+      소규모 공연장, 인디 잼룸 라이브, 길거리 버스킹도 간헐적으로 한다. 
+      모든 공연은 헬멧을 착용한 상태로 진행된다. 세션 드러머로 장르 불문하고 활동하기도 한다.
+    </p>
+    <p>
+      <strong>작업 패턴:</strong> 며칠씩 밤새 작업 → 며칠씩 번아웃 반복. 
+      <s>건강한 패턴은 아니다</s>
+    </p>
+
+    <h3 class="subsection anchor" id="s4-2"><span class="sec-num">4-2.</span>음악 스타일</h3>
+    <p>
+      반사회적이고 비판적인 성향의 곡들이 많다. 자본주의, 전쟁, 독재에 대한 풍자가 주된 주제다.
+      <span class="fn" data-fn="9">[9]<span class="fn-tooltip">가사 내용 탓에 플랫폼 제재를 받는 경우가 종종 있다고 한다.</span></span>
+    </p>
+
+    <table class="wiki-table">
+      <thead>
+        <tr><th>유형</th><th>특징</th><th>대표 트랙</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>과격·직격</strong></td>
+          <td>빠르고 날 것의 사운드, 드럼 앞세우기, 헤비 디스토션, 욕설·풍자 가사</td>
+          <td>PLASTIC CITY, CHEAP GOD</td>
+        </tr>
+        <tr>
+          <td><strong>리듬 중독</strong></td>
+          <td>드럼 루프 중심, 반복·중독성 강조, 악기 콜앤리스폰스</td>
+          <td>STATIC, DEAD SIGNAL</td>
+        </tr>
+        <tr>
+          <td><strong>냉소·건조</strong></td>
+          <td>중간 템포, 감정 억제, 은유적 가사, "화가 아닌 조롱" 무드</td>
+          <td>앨범 일부 트랙</td>
+        </tr>
+        <tr>
+          <td><strong>빗소리·잔잔</strong></td>
+          <td>느린 템포, 공간감, 드럼 축소, 개인 취향 반영</td>
+          <td>RAIN SMELL</td>
+        </tr>
+        <tr>
+          <td><strong>미완성·실험</strong></td>
+          <td>불안정한 구조, 고의적 거칠기, 라이브 한정</td>
+          <td>비공개</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 5. 음반 목록 -->
+    <h2 class="section anchor" id="s5"><span class="sec-num">5.</span>음반 목록</h2>
+
+    <div class="discography-item">
+      <div class="disco-header">
+        📀 1집 [BLACK NOISE]
+        <span class="disco-year">2024.02</span>
+      </div>
+      <div class="disco-body">
+        9트랙 구성. 날 것의 공격적인 사운드, 전곡 자작·자연. 믹싱은 거칠다.
+        초반 반응은 미미했으나 이후 일부 트랙에 소규모 팬층이 형성됨.
+        본인은 앨범 발매 후 "다시는 앨범 내지 않겠다"고 선언.
+        <span class="fn" data-fn="10">[10]<span class="fn-tooltip">이후 싱글만 내고 있다. 말은 지키는 사람.</span></span>
+      </div>
+    </div>
+
+    <div class="discography-item">
+      <div class="disco-header">
+        🎵 싱글 [STATIC]
+        <span class="disco-year">2024.08</span>
+      </div>
+      <div class="disco-body">
+        드럼 루프 중심의 리듬 중독형 트랙. 라이브 반응이 좋은 곡.
+      </div>
+    </div>
+
+    <div class="discography-item">
+      <div class="disco-header">
+        🎵 싱글 [PLASTIC CITY]
+        <span class="disco-year">2024.12</span>
+      </div>
+      <div class="disco-body">
+        자본주의 풍자를 전면에 내세운 과격 트랙. 가사 문제로 플랫폼 제재 이력 있음.
+      </div>
+    </div>
+
+    <div class="discography-item">
+      <div class="disco-header">
+        🎵 싱글 [DEAD SIGNAL]
+        <span class="disco-year">2025.05</span>
+      </div>
+      <div class="disco-body">
+        리듬 중독형. 반복적인 구조와 드럼 콜앤리스폰스가 특징.
+      </div>
+    </div>
+
+    <div class="discography-item">
+      <div class="disco-header">
+        🎵 싱글 [CHEAP GOD]
+        <span class="disco-year">2025.11</span>
+      </div>
+      <div class="disco-body">
+        과격·직격형의 정수. 욕설과 사회 비판이 직접적으로 담겨 있음. 팬층 내 평가가 엇갈린다.
+        <span class="fn" data-fn="11">[11]<span class="fn-tooltip">좋아하는 팬과 당황한 팬이 반반이라는 평도 있다.</span></span>
+      </div>
+    </div>
+
+    <div class="discography-item">
+      <div class="disco-header">
+        🎵 싱글 [RAIN SMELL]
+        <span class="disco-year">2026.01</span>
+      </div>
+      <div class="disco-body">
+        기존 스타일과 다른 빗소리·잔잔형 트랙. "밴드맨 A인 게 맞냐"는 반응부터 "이 트랙 좋다"는 반응까지.
+        본인 취향이 반영된 곡으로 보인다.
+      </div>
+    </div>
+
+    <!-- 6. 생활 패턴 -->
+    <h2 class="section anchor" id="s6"><span class="sec-num">6.</span>생활 패턴</h2>
+    <p>
+      이동 수단은 자전거가 주다.
+      <span class="fn" data-fn="12">[12]<span class="fn-tooltip">오토바이 헬멧을 쓰는데 정작 오토바이는 극도로 싫어한다는 점이 팬들에게는 미스터리다.</span></span>
+      소음에 민감한 편이라 드럼 연습은 낮 시간대에, 밤에는 패드만 사용한다.
+    </p>
+    <p>
+      좋아하는 것: 빗냄새, 록 음악, 야구(롯데 자이언츠 팬), 독서, 국물 요리, 눈.
+      <span class="fn" data-fn="13">[13]<span class="fn-tooltip">롯데 자이언츠 팬이다. 본인 팀 욕은 혼자 얼마든지 하지만 남이 하면 싫어한다. 조심.</span></span>
+    </p>
+    <p>
+      취미로는 캐치볼, 비디오 게임을 즐긴다. 지적 유희를 즐기는 편이며 독서량도 상당하다.
+      주로 음악, 철학, 문학 계열의 책을 읽는다.
+      팬들 사이에선 의외라는 말도 많이 나온다.
+    </p>
+    <p>
+      비 오는 날에는 전, 막걸리를 사들고 지인 집에 나타나는 경우가 있다. 
+      <s>불청객인지 반가운 손님인지는 보는 관점에 따라 다르다</s>
+    </p>
+
+    <!-- 7. 팬덤 -->
+    <h2 class="section anchor" id="s7"><span class="sec-num">7.</span>팬덤</h2>
+    <p>
+      "아는 사람만 아는" 수준의 소규모 팬층을 보유하고 있다.
+      스트리밍 수익은 월 20만 원 이하, 불규칙하다.
+      <span class="fn" data-fn="14">[14]<span class="fn-tooltip">본인은 돈 얘기를 가볍게 하는 편이지만 실제로는 꽤 빠듯한 생활을 하고 있는 것으로 보인다.</span></span>
+    </p>
+    <p>
+      트위터 팔로워들과의 소통은 주로 트위터를 통해 이루어진다.
+      팬들의 댓글을 꼼꼼히 읽고 기억하는 편이다.
+      팬에게 칭찬을 받으면 환하게 웃으며 기뻐한다.
+    </p>
+    <div class="wiki-gray">
+      💬 팬덤 내 밈: "헬멧 속에 뭐가 있을까", "롯데팬 조심", "비 오면 전화해", "RAIN SMELL은 밴드맨 A 곡이 맞나"
+    </div>
+
+    <!-- 8. 여담 -->
+    <h2 class="section anchor" id="s8"><span class="sec-num">8.</span>여담</h2>
+    <ul>
+      <li>좋아하는 밴드는 너바나(Nirvana), 메탈리카(Metallica)다.</li>
+      <li>일본 서브컬처, 보컬로이드에도 관심이 있다. <span class="fn" data-fn="15">[15]<span class="fn-tooltip">본인 왈 "그냥 가볍게 좋아한다"는 정도의 관심이라고.</span></span></li>
+      <li>인간 관계는 넓지만 가까운 사람은 드물다.</li>
+      <li>여러 사람에게 돈을 빌리는 경우가 종종 있다. 수입이 생기면 빠르게 갚는 편이다. <s>다만 수입 자체가...</s></li>
+      <li>단기 알바는 항상 뭔가 억울한 일이 생겨서 잘린다. 본인도 지겨워한다.</li>
+      <li>지인 집에 장비를 맡겨두고 드나드는 버릇이 있다.</li>
+    </ul>
+
+    <hr>
+
+    <!-- 9. 추천 페르소나 -->
+    <h2 class="section anchor" id="s9"><span class="sec-num">9.</span>추천 페르소나</h2>
+    <p class="text-muted text-small">밴드맨 A와 대화를 시작하기 위한 추천 설정들입니다.</p>
+
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="persona-line"><code>"와XX 밴드맨 A다!!! 근데 왜 쿠팡 트럭에서 내리세요?"</code></div>
+        <div class="persona-desc">밴드맨 A 알바 중에 알아보는 팬</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-line"><code>"저 님 볼려고 비행기 타고 날라옴!"</code></div>
+        <div class="persona-desc">바다 건너 온 밴드맨 A의 해외 팬</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-line"><code>"님 음악 개짱! 밥먹을때잠잘때일할때똥쌀때 맨날 들어요!"</code></div>
+        <div class="persona-desc">댓글 자주 남기는 열혈 팬</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-line"><code>"와 곡 X구려 ㅋㅋ 요즘 누가 메탈을 들어요"</code></div>
+        <div class="persona-desc">밴드맨 A 음악 까내리기 <s>다만 닦기 힘들어진다.</s></div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-line"><code>"응 롯데 야구 개못함~ ㅋㅋ" <s>특: 롯데팬</s></code></div>
+        <div class="persona-desc">야구 얘기로 짱친먹기 / 같이 야구 보러 가기</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-line"><code>"님아 트위터 그만하셈 아니 그렇다고 글을 안 올리라는 건 아니고요"</code> <s>뭐 어떡하라고</s></div>
+        <div class="persona-desc">밴드맨 A랑 트친먹기</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-line"><code>"너이XX일루와 딱걸렸어 돈갚아"</code></div>
+        <div class="persona-desc">밴드맨 A에게 돈 빌려준 지인 <s>라고 쓰고 빚쟁이라고 읽는다.</s></div>
+      </div>
+    </div>
+
+    <!-- 10. 명령어 목록 -->
+    <h2 class="section anchor" id="s10"><span class="sec-num">10.</span>명령어 목록</h2>
+      <div class="cmd-item"><span class="cmd-code">!오류</span><span class="cmd-desc">유저사칭/인용, 본명 스포, 이미지 중복/누락, 상태창/HUD 누락</span></div>
+      <div class="cmd-item"><span class="cmd-code">!하루스킵</span><span class="cmd-desc">하루 뒤로 시간 넘기기</span></div>
+      <div class="cmd-item"><span class="cmd-code">!일주일스킵</span><span class="cmd-desc">일주일 뒤로 시간 넘기기</span></div>
+      <div class="cmd-item"><span class="cmd-code">!이벤트</span><span class="cmd-desc">랜덤 이벤트 발생</span></div>
+      <div class="cmd-item"><span class="cmd-code">!커뮤</span><span class="cmd-desc">커뮤니티 반응 출력</span></div>
+      <div class="cmd-item"><span class="cmd-code">!트위터</span><span class="cmd-desc">밴드맨 A의 트윗 출력</span></div>
+      <div class="cmd-item"><span class="cmd-code">!일기</span><span class="cmd-desc">밴드맨 A 일기 엿보기</span></div>
+      <div class="cmd-item"><span class="cmd-code">!폰</span><span class="cmd-desc">밴드맨 A 폰 엿보기</span></div>
+      <div class="cmd-item"><span class="cmd-code">!위키</span><span class="cmd-desc">밴드맨 A의 나무위키 문서 출력</span></div>
+      <div class="cmd-item"><span class="cmd-code">!죽어 캐릭터명</span><span class="cmd-desc">해당 캐릭터 사망 처리. 찌통서사를 원하거나 거슬리는 자식에게 써 보세요.</span></div>
+      <div class="cmd-item"><span class="cmd-code">!순애데이터추출</span><span class="cmd-desc">밴드맨 A의 순애도 측정</span></div>
+
+    <!-- 각주 목록 -->
+    <div class="fn-list">
+      <div class="fn-list-title">각주</div>
+      <div class="fn-item"><span class="fn-item-num">[1]</span><span>실명 및 본명은 공개된 바 없다. '밴드맨 A'라는 명칭 자체가 익명성을 강조하는 활동명이다.</span></div>
+      <div class="fn-item"><span class="fn-item-num">[2]</span><span>헬멧을 착용하는 이유는 본인만 알고 있다. 팬들 사이에서는 각종 추측이 난무하나 공식적으로 밝혀진 바 없다.</span></div>
+      <div class="fn-item"><span class="fn-item-num">[3]</span><span>보컬에 대해서는 스스로 평가절하하는 편이다. "저 노래는 못해요"가 정석 멘트.</span></div>
+      <div class="fn-item"><span class="fn-item-num">[4]</span><span>단기 알바의 경우 항상 뭔가 사고가 터지거나 억울한 일이 생겨서 잘린다고 한다. 본인은 이를 무덤덤하게 받아들인다.</span></div>
+      <div class="fn-item"><span class="fn-item-num">[5]</span><span>손 팬들이 꽤 있다고 한다. 본인은 자기 손에 대해 특별히 신경쓰지 않는 편.</span></div>
+      <div class="fn-item"><span class="fn-item-num">[6]</span><span>오토바이를 극도로 싫어함에도 오토바이 헬멧을 쓴다는 점이 팬들에게는 미스터리다.</span></div>
+      <div class="fn-item"><span class="fn-item-num">[7]</span><span>가사에는 욕설이 꽤 들어가는 편이지만 일상 대화에서는 거의 쓰지 않는다. "음악이랑 일상은 다르다"는 입장인 듯하다.</span></div>
+      <div class="fn-item"><span class="fn-item-num">[8]</span><span>팬들 사이에서는 "복불복 앨범"이라는 별칭도 있다.</span></div>
+      <div class="fn-item"><span class="fn-item-num">[9]</span><span>가사 내용 탓에 플랫폼 제재를 받는 경우가 종종 있다고 한다.</span></div>
+      <div class="fn-item"><span class="fn-item-num">[10]</span><span>이후 싱글만 내고 있다. 말은 지키는 사람.</span></div>
+      <div class="fn-item"><span class="fn-item-num">[11]</span><span>좋아하는 팬과 당황한 팬이 반반이라는 평도 있다.</span></div>
+      <div class="fn-item"><span class="fn-item-num">[12]</span><span>오토바이 헬멧을 쓰는데 정작 오토바이는 극도로 싫어한다는 점이 팬들에게는 미스터리다.</span></div>
+      <div class="fn-item"><span class="fn-item-num">[13]</span><span>롯데 자이언츠 팬이다. 본인 팀 욕은 혼자 얼마든지 하지만 남이 하면 싫어한다. 조심.</span></div>
+      <div class="fn-item"><span class="fn-item-num">[14]</span><span>본인은 돈 얘기를 가볍게 하는 편이지만 실제로는 꽤 빠듯한 생활을 하고 있는 것으로 보인다.</span></div>
+      <div class="fn-item"><span class="fn-item-num">[15]</span><span>본인 왈 "그냥 가볍게 좋아한다"는 정도의 관심이라고.</span></div>
+    </div>
+
+    <hr>
+    <p class="text-center text-muted text-small">
+      이 문서는 가상의 캐릭터 소개를 위한 문서입니다.
+    </p>
+
+  </main>
+</div>
+
+<script>
+  // 각주 데이터
+  const fnData = {
+    1: '실명 및 본명은 공개된 바 없다. \'밴드맨 A\'라는 명칭 자체가 익명성을 강조하는 활동명이다.',
+    2: '헬멧을 착용하는 이유는 본인만 알고 있다. 팬들 사이에서는 각종 추측이 난무하나 공식적으로 밝혀진 바 없다.',
+    3: '보컬에 대해서는 스스로 평가절하하는 편이다. "저 노래는 못해요"가 정석 멘트.',
+    4: '단기 알바의 경우 항상 뭔가 사고가 터지거나 억울한 일이 생겨서 잘린다고 한다. 본인은 이를 무덤덤하게 받아들인다.',
+    5: '손 팬들이 꽤 있다고 한다. 본인은 자기 손에 대해 특별히 신경쓰지 않는 편.',
+    6: '오토바이를 극도로 싫어함에도 오토바이 헬멧을 쓴다는 점이 팬들에게는 미스터리다.',
+    7: '가사에는 욕설이 꽤 들어가는 편이지만 일상 대화에서는 거의 쓰지 않는다.',
+    8: '팬들 사이에서는 "복불복 앨범"이라는 별칭도 있다.',
+    9: '가사 내용 탓에 플랫폼 제재를 받는 경우가 종종 있다고 한다.',
+    10: '이후 싱글만 내고 있다. 말은 지키는 사람.',
+    11: '좋아하는 팬과 당황한 팬이 반반이라는 평도 있다.',
+    12: '오토바이 헬멧을 쓰는데 정작 오토바이는 극도로 싫어한다는 점이 팬들에게는 미스터리다.',
+    13: '롯데 자이언츠 팬이다. 본인 팀 욕은 혼자 얼마든지 하지만 남이 하면 싫어한다. 조심.',
+    14: '본인은 돈 얘기를 가볍게 하는 편이지만 실제로는 꽤 빠듯한 생활을 하고 있는 것으로 보인다.',
+    15: '본인 왈 "그냥 가볍게 좋아한다"는 정도의 관심이라고.',
+  };
+
+  // 터치 디바이스 감지
+  const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
+
+  document.querySelectorAll('.fn').forEach(el => {
+    el.addEventListener('click', (e) => {
+      if (isTouchDevice()) {
+        e.preventDefault();
+        const num = el.dataset.fn;
+        document.getElementById('fnPopupNum').textContent = `각주 [${num}]`;
+        document.getElementById('fnPopupText').textContent = fnData[num] || '';
+        document.getElementById('fnOverlay').classList.add('active');
+      }
+    });
+  });
+
+  function closeFnPopup() {
+    document.getElementById('fnOverlay').classList.remove('active');
+  }
+
+  document.getElementById('fnOverlay').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('fnOverlay')) closeFnPopup();
+  });
+
+  // 목차 스크롤 부드럽게
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if (el) {
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
