@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABSURDUS — CHROMA 세계관 캐릭터 소개</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Eulyoo1945';
+    src: url('Eulyoo1945-Regular.ttf') format('truetype');
+    font-weight: 400;
+  }
+  :root {
+    --ink: #1a1610;
+    --paper: #f0ebe0;
+    --aged: #d4c9a8;
+    --gold: #b8963e;
+    --gold-dim: #7a6228;
+    --rust: #8b4a2f;
+    --teal: #2a6b6e;
+    --teal-dim: #1d4a4c;
+    --fog: #9a9080;
+    --shadow: rgba(26,22,16,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Eulyoo1945', serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── HEADER / HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 4rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 70%, rgba(42,107,110,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(184,150,62,0.08) 0%, transparent 50%);
+  }
+
+  .hero-left::after {
+    content: 'ABSURDUS';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-12deg);
+    font-family: 'Eulyoo1945', serif;
+    font-size: 11rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.025);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 1s ease 0.2s both;
+  }
+
+  .hero-name {
+    font-family: 'Eulyoo1945', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 700;
+    color: var(--paper);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-name-kr {
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: var(--fog);
+    margin-top: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    animation: fadeUp 1s ease 0.5s both;
+  }
+
+  .hero-divider {
+    width: 3rem;
+    height: 1px;
+    background: var(--gold);
+    margin: 2rem 0;
+    animation: expandX 1s ease 0.7s both;
+  }
+
+  .hero-subtitle {
+    font-size: 0.85rem;
+    color: var(--fog);
+    line-height: 1.8;
+    max-width: 320px;
+    animation: fadeUp 1s ease 0.8s both;
+  }
+
+  .hero-right {
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 3rem;
+    position: relative;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10%;
+    bottom: 10%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--aged) 30%, var(--aged) 70%, transparent);
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    animation: fadeUp 1s ease 0.6s both;
+  }
+
+  .stat-item {
+    padding: 1.25rem;
+    border: 1px solid var(--aged);
+    position: relative;
+  }
+
+  .stat-item::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 1rem;
+    width: 2rem;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--fog);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-value {
+    font-size: 0.95rem;
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  .stat-value.accent { color: var(--teal); font-weight: 600; }
+
+  .hero-quote {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'Eulyoo1945', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    position: relative;
+    animation: fadeUp 1s ease 0.9s both;
+  }
+
+  .hero-quote::before {
+    content: '"';
+    position: absolute;
+    top: -1.5rem;
+    left: 1rem;
+    font-size: 5rem;
+    color: var(--gold);
+    font-family: 'Eulyoo1945', serif;
+    line-height: 1;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    border-bottom: 1px solid rgba(184,150,62,0.3);
+    padding: 0 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+  }
+
+  nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fog);
+    text-decoration: none;
+    padding: 1rem 1.25rem;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+
+  nav a:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+
+  nav .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--paper);
+    margin-right: auto;
+    padding: 1rem 0;
+    letter-spacing: 0.3em;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 3rem;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--aged);
+    max-width: 60px;
+  }
+
+  .section-title {
+    font-family: 'Eulyoo1945', serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* ── WORLD SECTION ── */
+  .world-section {
+    background: var(--ink);
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .world-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .world-left .section-label { color: var(--teal); }
+  .world-left .section-title { color: var(--paper); }
+
+  .world-text {
+    color: #a09880;
+    line-height: 1.9;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .world-text strong { color: var(--gold); font-weight: 400; }
+
+  .zone-list { margin-top: 2rem; }
+
+  .zone-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    align-items: flex-start;
+  }
+
+  .zone-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--gold-dim);
+    padding-top: 0.2rem;
+    min-width: 2.5rem;
+  }
+
+  .zone-info { flex: 1; }
+
+  .zone-name {
+    font-size: 0.85rem;
+    color: var(--paper);
+    margin-bottom: 0.25rem;
+    font-weight: 400;
+  }
+
+  .zone-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--fog);
+    letter-spacing: 0.05em;
+  }
+
+  .org-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .org-card {
+    padding: 1.25rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+    transition: border-color 0.3s;
+  }
+
+  .org-card:hover { border-color: rgba(184,150,62,0.3); }
+
+  .org-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+  }
+
+  .org-card-name {
+    font-size: 0.85rem;
+    color: var(--paper);
+    font-weight: 600;
+  }
+
+  .org-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid;
+  }
+
+  .org-badge.hero { color: var(--teal); border-color: var(--teal-dim); }
+  .org-badge.villain { color: var(--rust); border-color: #5a3020; }
+  .org-badge.grey { color: var(--fog); border-color: #4a4030; }
+
+  .org-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--fog);
+    line-height: 1.7;
+  }
+
+  .org-rel {
+    margin-top: 0.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    padding: 0.3rem 0.6rem;
+    display: inline-block;
+  }
+
+  .org-rel.yes { background: rgba(42,107,110,0.15); color: var(--teal); }
+  .org-rel.neutral { background: rgba(154,144,128,0.1); color: var(--fog); }
+  .org-rel.avoid { background: rgba(139,74,47,0.15); color: var(--rust); }
+
+  /* ── CHARACTER SECTION ── */
+  .char-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .profile-card {
+    position: sticky;
+    top: 5rem;
+    border: 1px solid var(--aged);
+    overflow: hidden;
+  }
+
+  .profile-img-placeholder {
+    aspect-ratio: 3/4;
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .profile-img-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 80%, rgba(42,107,110,0.2) 0%, transparent 60%),
+                radial-gradient(ellipse at 30% 20%, rgba(184,150,62,0.1) 0%, transparent 50%);
+  }
+
+  .silhouette {
+    font-size: 8rem;
+    opacity: 0.15;
+    filter: blur(1px);
+  }
+
+  .profile-code {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .profile-code-id {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--gold-dim);
+    letter-spacing: 0.2em;
+    margin-bottom: 0.25rem;
+  }
+
+  .profile-code-name {
+    font-family: 'Eulyoo1945', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--paper);
+  }
+
+  .profile-meta {
+    padding: 1.25rem;
+    background: var(--paper);
+  }
+
+  .profile-meta-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--aged);
+    font-size: 0.8rem;
+  }
+
+  .profile-meta-row:last-child { border-bottom: none; }
+
+  .profile-meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--fog);
+    text-transform: uppercase;
+    padding-top: 0.1rem;
+  }
+
+  .profile-meta-value { color: var(--ink); font-weight: 400; }
+  .profile-meta-value.special { color: var(--teal); font-weight: 600; }
+
+  /* DETAIL TABS */
+  .detail-content { }
+
+  .detail-block {
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--aged);
+  }
+
+  .detail-block:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .block-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .block-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--aged);
+  }
+
+  .desc-text {
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: #3a3020;
+    margin-bottom: 1rem;
+  }
+
+  .desc-text strong { color: var(--ink); font-weight: 600; }
+  .desc-text em { color: var(--teal-dim); font-style: italic; }
+
+  .trait-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .trait-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 0.75rem 1rem;
+    background: rgba(26,22,16,0.04);
+    border-left: 2px solid var(--aged);
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #3a3020;
+  }
+
+  .trait-item.highlight { border-left-color: var(--teal); }
+  .trait-item.warn { border-left-color: var(--rust); }
+
+  .trait-icon {
+    font-size: 0.75rem;
+    padding-top: 0.15rem;
+    opacity: 0.6;
+    min-width: 1rem;
+  }
+
+  /* ABILITY BOX */
+  .ability-box {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+
+  .ability-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(42,107,110,0.2) 0%, transparent 60%);
+  }
+
+  .ability-name {
+    font-family: 'Eulyoo1945', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .ability-class {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--teal);
+    margin-bottom: 1.25rem;
+  }
+
+  .ability-desc {
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: #a09880;
+    margin-bottom: 1rem;
+  }
+
+  .ability-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--fog);
+    padding: 0.75rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  /* STATIC BAR SECTION */
+  .static-section {
+    background: #111009;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .static-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .static-label { color: var(--fog); }
+  .static-title { color: var(--paper); }
+
+  .static-ambience {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .ambience-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .ambience-bullet {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--teal-dim);
+    margin-top: 0.55rem;
+    flex-shrink: 0;
+  }
+
+  .ambience-text {
+    font-size: 0.85rem;
+    color: #7a7060;
+    line-height: 1.7;
+  }
+
+  .bartender-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    padding: 2rem;
+  }
+
+  .bartender-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .bartender-name {
+    font-family: 'Eulyoo1945', serif;
+    font-size: 1.2rem;
+    color: var(--paper);
+  }
+
+  .bartender-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--fog);
+    letter-spacing: 0.1em;
+  }
+
+  .bartender-desc {
+    font-size: 0.85rem;
+    color: #7a7060;
+    line-height: 1.9;
+    margin-bottom: 1rem;
+  }
+
+  .exchange-box {
+    background: rgba(0,0,0,0.3);
+    padding: 1.25rem;
+    border-left: 2px solid var(--teal-dim);
+    margin-top: 1.5rem;
+  }
+
+  .exchange-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: var(--teal-dim);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .exchange-text {
+    font-family: 'Eulyoo1945', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--fog);
+    line-height: 1.8;
+  }
+
+  /* ── STATUS WINDOW ── */
+  .status-section {
+    background: #f5f0e5;
+    max-width: 100%;
+    padding: 0;
+    border-top: 1px solid var(--aged);
+  }
+
+  .status-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 3rem;
+  }
+
+  .status-window {
+    background: var(--ink);
+    font-family: 'DM Mono', monospace;
+    border: 1px solid rgba(184,150,62,0.3);
+    overflow: hidden;
+  }
+
+  .status-titlebar {
+    background: rgba(184,150,62,0.1);
+    border-bottom: 1px solid rgba(184,150,62,0.2);
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .titlebar-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .dot-red { background: #8b4a2f; }
+  .dot-yellow { background: var(--gold-dim); }
+  .dot-green { background: var(--teal-dim); }
+
+  .titlebar-text {
+    font-size: 0.6rem;
+    color: var(--fog);
+    letter-spacing: 0.15em;
+    margin-left: 0.5rem;
+  }
+
+  .status-summary {
+    font-size: 0.65rem;
+    color: var(--gold);
+    padding: 0.75rem 1rem;
+    background: rgba(184,150,62,0.06);
+    border-bottom: 1px solid rgba(184,150,62,0.1);
+    letter-spacing: 0.08em;
+  }
+
+  .status-body {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .status-row {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.7rem;
+    line-height: 1.6;
+    align-items: flex-start;
+  }
+
+  .status-icon {
+    min-width: 1.5rem;
+    color: var(--gold-dim);
+  }
+
+  .status-key {
+    min-width: 3.5rem;
+    color: var(--fog);
+  }
+
+  .status-val { color: #c0b89a; }
+  .status-val.highlight { color: var(--paper); }
+  .status-val.secret {
+    color: var(--teal-dim);
+    font-style: italic;
+  }
+
+  .status-hr {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin: 0.5rem 0;
+  }
+
+  /* ── COMMANDS SECTION ── */
+  .cmd-section {
+    background: var(--paper);
+  }
+
+  .cmd-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--aged);
+    border: 1px solid var(--aged);
+    margin-top: 0;
+  }
+
+  .cmd-card {
+    background: var(--paper);
+    padding: 1.5rem;
+    transition: background 0.2s;
+  }
+
+  .cmd-card:hover { background: #e8e2d0; }
+
+  .cmd-trigger {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--teal);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .cmd-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+
+  .cmd-desc {
+    font-size: 0.8rem;
+    color: var(--fog);
+    line-height: 1.7;
+  }
+
+  .cmd-sub {
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(26,22,16,0.05);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--fog);
+    line-height: 1.7;
+  }
+
+  /* ── PHILOSOPHY ── */
+  .philosophy-section {
+    background: var(--ink);
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .philosophy-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .phil-card {
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+  }
+
+  .phil-num {
+    font-family: 'Eulyoo1945', serif;
+    font-size: 4rem;
+    font-style: italic;
+    color: rgba(184,150,62,0.15);
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    line-height: 1;
+  }
+
+  .phil-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--teal);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .phil-text {
+    font-size: 0.85rem;
+    color: #7a7060;
+    line-height: 1.9;
+  }
+
+  .phil-text em { color: var(--gold-dim); font-style: italic; }
+
+  /* ── CLOSING QUOTE ── */
+  .closing {
+    background: var(--ink);
+    max-width: 100%;
+    padding: 0;
+    border-top: 1px solid rgba(184,150,62,0.2);
+  }
+
+  .closing-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 6rem 3rem;
+    text-align: center;
+  }
+
+  .closing-quote {
+    font-family: 'Eulyoo1945', serif;
+    font-style: italic;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--fog);
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+
+  .closing-quote strong { color: var(--paper); }
+
+  .closing-attr {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes expandX {
+    from { width: 0; }
+    to { width: 3rem; }
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--ink); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 3rem 1.5rem; min-height: 60vh; }
+    .hero-right { padding: 2rem 1.5rem; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .world-inner, .static-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .char-grid { grid-template-columns: 1fr; }
+    .profile-card { position: static; }
+    .philosophy-inner { grid-template-columns: 1fr; }
+    section { padding: 3rem 1.5rem; }
+    nav { padding: 0 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ HERO ══════════════════════════════ -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">CHROMA / 그리드 미들 7블록 / 정보상·브로커</div>
+    <div class="hero-name"><em>ABSURDUS</em></div>
+    <div class="hero-name-kr">백 영 욱 · 泳旭</div>
+    <div class="hero-divider"></div>
+    <div class="hero-subtitle">
+      전직 아크라이트 요원.<br>
+      현직 뒷골목 정보상.<br>
+      세계는 구제불능이라는 것을 알고 있으며,<br>
+      그래서 구하려 들지 않는다.
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-grid">
+      <div class="stat-item">
+        <div class="stat-label">연령</div>
+        <div class="stat-value">28세</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">신장 / 체중</div>
+        <div class="stat-value">184 cm / 78 kg</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">스펙트라 계열</div>
+        <div class="stat-value accent">청록 (TC-07)</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">전직</div>
+        <div class="stat-value">아크라이트 12지부</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">생일</div>
+        <div class="stat-value">01월 04일</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">거점</div>
+        <div class="stat-value">그리드 미들 7블록</div>
+      </div>
+    </div>
+    <div class="hero-quote">
+      세계가 부조리하다는 것처럼. 그래서 이름이 ABSURDUS다—카뮈의 부조리에서 따온 가명. 세계의 무의미함을 직시하되, 그렇다고 죽지는 않는다는 태도.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ NAV ══════════════════════════════ -->
+<nav>
+  <span class="nav-logo">CHROMA · ABSURDUS</span>
+  <a href="#world">세계관</a>
+  <a href="#character">캐릭터</a>
+  <a href="#static">STATIC</a>
+  <a href="#status">상태창</a>
+  <a href="#commands">명령어</a>
+  <a href="#philosophy">사상</a>
+</nav>
+
+<!-- ══════════════════════════════ WORLD ══════════════════════════════ -->
+<div class="world-section" id="world">
+  <div class="world-inner">
+    <div class="world-left">
+      <div class="section-label">01 — 세계관</div>
+      <div class="section-title" style="color:var(--paper)">CHROMA, 2071</div>
+      <p class="world-text">
+        한반도 전역 + 일본 남부 연안을 아우르는 메가시티 <strong>크로마(CHROMA)</strong>. 
+        2040년대의 광섬유 신경망 재건 프로젝트 이후, 도시 전역이 AI 관제 시스템 <strong>LUMEN</strong>에 의해 운용된다.
+      </p>
+      <p class="world-text">
+        2041년 <strong>색채 폭발(Chroma Burst)</strong>. 원인 불명의 에너지 방출 사건으로 노출 인구 약 3%에서 이형 능력이 각인됐다. 정부는 이들을 <strong>스펙트라(Spectra)</strong>로 분류했고, 면허제를 강제한다. 무허가 능력자는 <em>언더컬러</em>—법적 보호 없음.
+      </p>
+      <p class="world-text">
+        표면은 세련됐다. 치안 통계는 사상 최저를 기록한다. 그러나 지도에 없는 지하 도시에 30만 명이 살고, LUMEN은 당신이 어디서 자고 누구를 사랑하는지 안다.
+      </p>
+      <div class="zone-list">
+        <div class="zone-item">
+          <div class="zone-num">Zone 01</div>
+          <div class="zone-info">
+            <div class="zone-name">루멘 코어</div>
+            <div class="zone-desc">중앙 관제 / 최고 제한 / LUMEN 타워</div>
+          </div>
+        </div>
+        <div class="zone-item">
+          <div class="zone-num">Zone 02</div>
+          <div class="zone-info">
+            <div class="zone-name">하이아크</div>
+            <div class="zone-desc">지상 80m 부유 플랫폼 / 상위 2% 거주</div>
+          </div>
+        </div>
+        <div class="zone-item">
+          <div class="zone-num">Zone 03</div>
+          <div class="zone-info">
+            <div class="zone-name">그리드 미들 ★</div>
+            <div class="zone-desc">인구 60% 거주 / ABSURDUS 거점 구역</div>
+          </div>
+        </div>
+        <div class="zone-item">
+          <div class="zone-num">Zone 04</div>
+          <div class="zone-info">
+            <div class="zone-name">섀도우 씨임</div>
+            <div class="zone-desc">지도 외 지하 도시 / 실거주 약 30만</div>
+          </div>
+        </div>
+        <div class="zone-item">
+          <div class="zone-num">Zone 05</div>
+          <div class="zone-info">
+            <div class="zone-name">러스트 링</div>
+            <div class="zone-desc">외곽 붕괴 구역 / 실질 치안 부재</div>
+          </div>
+        </div>
+        <div class="zone-item">
+          <div class="zone-num">Zone EX</div>
+          <div class="zone-info">
+            <div class="zone-name">노 존 🔒</div>
+            <div class="zone-desc">색채 폭발 진원지 / 출입 전면 금지 / ···</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="org-grid">
+      <div class="section-label" style="color:var(--fog); margin-bottom:1rem; font-family:'DM Mono',monospace; font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase;">주요 조직 &amp; 관계</div>
+
+      <div class="org-card">
+        <div class="org-card-header">
+          <div class="org-card-name">아크라이트 (Arclight)</div>
+          <div class="org-badge hero">HERO</div>
+        </div>
+        <div class="org-desc">공식 히어로 조직. 1세대 이상주의자 출신이 창설했으나 2054년 국가 편입 후 두 개의 얼굴을 갖게 됨. 현장 요원(표층)과 내무부 직결 심층이 공존한다.</div>
+        <div class="org-rel yes">ABSURDUS 전직 소속 · 일부 현장 요원과 비공식 연락 유지</div>
+      </div>
+
+      <div class="org-card">
+        <div class="org-card-header">
+          <div class="org-card-name">프리즘 카르텔 (Prism Cartel)</div>
+          <div class="org-badge villain">VILLAIN</div>
+        </div>
+        <div class="org-desc">능력 억제제 그레이 드롭 & 증폭제 플레어 유통. 완전 분산 구조—단일 수장 없음, 단일 본부 없음. 섀도우 씨임 기반.</div>
+        <div class="org-rel neutral">거래 상대 · 신뢰 없음 · 실용적 균형만</div>
+      </div>
+
+      <div class="org-card">
+        <div class="org-card-header">
+          <div class="org-card-name">NULL</div>
+          <div class="org-badge grey">GREY</div>
+        </div>
+        <div class="org-desc">LUMEN 감시망 해킹, 내무부 기밀 유출, 시민 정보 패킷 배포. 폭로한 정보는 대부분 사실이었다. “대부분”이라는 단어가 중요하다.</div>
+        <div class="org-rel neutral">가끔 접점 · 이념 동의 안함 · 정보 교환</div>
+      </div>
+
+      <div class="org-card">
+        <div class="org-card-header">
+          <div class="org-card-name">하이아크 집정원</div>
+          <div class="org-badge grey">GREY</div>
+        </div>
+        <div class="org-desc">선출되지 않았고, 임기 없음. 의회 결정보다 먼저 이루어지고 의회가 추인한다. 크로마의 실질 권력층.</div>
+        <div class="org-rel neutral">클라이언트 일부 · 돈 받고 거리 유지</div>
+      </div>
+
+      <div class="org-card">
+        <div class="org-card-header">
+          <div class="org-card-name">LUMEN 내무부</div>
+          <div class="org-badge grey">UNKNOWN</div>
+        </div>
+        <div class="org-desc">크로마의 진짜 정부. LUMEN이 내무부를 운영하는지, 내무부가 LUMEN을 운영하는지—답할 수 있는 사람이 없다.</div>
+        <div class="org-rel avoid">접촉 없음 · 유일하게 능동적으로 피하는 세력</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ CHARACTER ══════════════════════════════ -->
+<section id="character">
+  <div class="section-label">02 — 캐릭터</div>
+  <div class="section-title">백영욱 / ABSURDUS</div>
+
+  <div class="char-grid">
+    <div class="profile-card">
+      <div class="profile-img-placeholder">
+          <img src="https://typie.net/original-images/26/05/q/qM/qM9yMBhr4d6oV6W0Abk6q.jpg" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
+      <div class="profile-meta">
+        <div class="profile-meta-row">
+          <div class="profile-meta-label">신장/체중</div>
+          <div class="profile-meta-value">184 / 78</div>
+        </div>
+        <div class="profile-meta-row">
+          <div class="profile-meta-label">안목</div>
+          <div class="profile-meta-value">금안, 나른히 처짐</div>
+        </div>
+        <div class="profile-meta-row">
+          <div class="profile-meta-label">머리</div>
+          <div class="profile-meta-value">새하얀 장발, 반묶음</div>
+        </div>
+        <div class="profile-meta-row">
+          <div class="profile-meta-label">안경</div>
+          <div class="profile-meta-value">오벌 금테 (도수 없음)</div>
+        </div>
+        <div class="profile-meta-row">
+          <div class="profile-meta-label">능력</div>
+          <div class="profile-meta-value special">인식 침투</div>
+        </div>
+        <div class="profile-meta-row">
+          <div class="profile-meta-label">전직</div>
+          <div class="profile-meta-value">아크라이트 (4년)</div>
+        </div>
+        <div class="profile-meta-row">
+          <div class="profile-meta-label">현직</div>
+          <div class="profile-meta-value">정보상 / 브로커</div>
+        </div>
+        <div class="profile-meta-row">
+          <div class="profile-meta-label">거주지</div>
+          <div class="profile-meta-value">7블록 자취방 (3층)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-content">
+
+      <div class="detail-block">
+        <div class="block-title">외모 · 첫인상</div>
+        <p class="desc-text">
+          허리까지 내려오는 <strong>새하얀 장발</strong>을 거의 항상 반묶음으로 묶는다. 앞머리 없음. 나른하고 반쯤 감긴 처진 눈에 <strong>금안</strong>. 창백한 피부. 어딘가 항상 웃고 있다. 도수 없는 오벌 금테 안경—<em>“있어 보여서”</em>라는 것이 본인의 설명이다.
+        </p>
+        <p class="desc-text">
+          긴소매 셔츠에 정장 바지, 구두. 대놓고 정장은 아니지만 캐주얼하지도 않은 중간 어딘가. 날이 쌀쌀하면 재킷만 어깨에 걸친다. 손이 크고 핏줄이 돋는다. 생활 근육이 많다. 자잘한 긁힘 상처가 이리저리 있다.
+        </p>
+      </div>
+
+      <div class="detail-block">
+        <div class="block-title">성격 · 행동 방식</div>
+        <div class="trait-list">
+          <div class="trait-item highlight">
+            <div class="trait-icon">▸</div>
+            <div><strong>항상 한 박자 늦게 반응.</strong> 급한 상황에서도 목소리 톤이 거의 변하지 않는다. 질문에 바로 답하지 않고 의미 없는 농담이나 비유 하나를 끼워 넣고 답한다.</div>
+          </div>
+          <div class="trait-item">
+            <div class="trait-icon">▸</div>
+            <div>대화 중 <strong>시선을 상대 눈 대신 입이나 손, 주변 사물</strong> 쪽으로 둔다. 집중 안 하는 것처럼 보이지만 사실 다 듣고 있다. 중요한 말 할 때만 시선이 고정된다—압박용.</div>
+          </div>
+          <div class="trait-item">
+            <div class="trait-icon">▸</div>
+            <div>존댓말과 반말을 상황에 따라 섞는다. <strong>상대 이름을 잘 안 부른다</strong>—'그쪽', '이봐' 등으로. 관계 거리 유지.</div>
+          </div>
+          <div class="trait-item">
+            <div class="trait-icon">▸</div>
+            <div>잔 들고 있을 때 <strong>절대 먼저 마시지 않는다</strong>. 상대가 먼저 마시는지 확인하고 그 다음에 마신다. 기본적인 경계 습관.</div>
+          </div>
+          <div class="trait-item">
+            <div class="trait-icon">▸</div>
+            <div>약속 시간보다 <strong>항상 먼저 와 있다</strong>. 근데 먼저 왔다고 티는 내지 않는다. 정보상 특유의 대비 습관.</div>
+          </div>
+          <div class="trait-item warn">
+            <div class="trait-icon">▸</div>
+            <div>진짜로 선을 넘으면 <strong>말투에서 농담이 사라진다</strong>. 그것이 유일한 경고 신호.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <div class="block-title">능력 — 인식 침투 (Perceptual Bleed)</div>
+        <div class="ability-box">
+          <div class="ability-name">Perceptual Bleed</div>
+          <div class="ability-class">청록 계열 · TC-07 · 인간 측 특이 발현</div>
+          <p class="ability-desc">
+            대화 중, 혹은 근거리 접촉 시 상대의 감정 상태·의도의 표층을 읽는다. 생각 읽기나 거짓말 탐지가 아니다. '지금 이 사람이 무엇을 두려워하는지, 무엇을 원하는지, 어느 지점에서 긴장하는지'—희미하게 감지한다. 언어가 아니라 인상으로, 선명한 정보가 아니라 온도 같은 것으로.
+          </p>
+          <p class="ability-desc">
+            청록 계열의 공식 분류는 인식·해킹이지만 디지털이 아닌 인간 쪽으로 치우쳐 발현했다. CAMA 위원회 입장에서 분류하기 애매한 케이스.
+          </p>
+          <div class="ability-note">
+            ⚠ 능력은 항상 켜져 있다. 끄는 법을 알지만 완전히 차단하면 감각이 과부하된다. 평소엔 낮게 깔아두고 흘려보낸다. 대화 중 눈을 맞추면 수신 강도가 올라간다—그래서 시선을 피하는 것이다.
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <div class="block-title">아크라이트 탈퇴 계기</div>
+        <p class="desc-text">
+          <strong>2058년 그레이 드롭 사태.</strong> 섀도우 씨임 미등록 스펙트라 사망 사건 현장 조사 중이었다. 카르텔 유통 경로, 묵인한 아크라이트 중간 간부 이름, 하이아크 집정원으로 이어지는 자금 흐름의 단서를 직접 손으로 모았다.
+        </p>
+        <p class="desc-text">
+          보고서는 12지부를 거쳐 본부로 올라갔고, 3개월 후 수사는 돌연 종결됐다. 종결 이유는 이미 알고 있었기에 묻지 않았다. 보고서를 올리기 전에 <em>사본을 하나 챙겨두고</em> 그해 말 조용히 사직서를 제출했다.
+        </p>
+        <p class="desc-text">
+          아크라이트는 붙잡지 않았다. 그 보고서 사본은 지금도 어딘가에 있다. 그것으로 무언가를 할 생각인지—본인 외에는 모른다.
+        </p>
+      </div>
+
+      <div class="detail-block">
+        <div class="block-title">취향 · 혐오</div>
+        <div class="trait-list">
+          <div class="trait-item highlight">
+            <div class="trait-icon">♡</div>
+            <div>롱 아일랜드 아이스티 (최애 칵테일) / 정장 / 서점과 책 / 늦은 밤 골목길 산책 / 알베르 카뮈</div>
+          </div>
+          <div class="trait-item warn">
+            <div class="trait-icon">✕</div>
+            <div>무능한 정의감 · 실력 없이 정의만 외치는 타입 / 약속 가볍게 여기는 사람 / 흡연</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <div class="block-title">호감도 시스템</div>
+        <p class="desc-text">
+          호감을 <strong>절대 먼저 드러내지 않는다</strong>. 호감 상승은 행동의 미세한 변화로만 표현된다. 본인이 인식하더라도 농담으로 즉시 덮는다.
+        </p>
+        <div class="trait-list">
+          <div class="trait-item">
+            <div class="trait-icon">0~30%</div>
+            <div><strong>거래 상대</strong> — 기본값. 능글맞고 계산적. 이름 안 부름. 시선 거의 안 줌.</div>
+          </div>
+          <div class="trait-item">
+            <div class="trait-icon">30~50%</div>
+            <div><strong>흥미</strong> — 질문에 농담 한 번 덜 끼움. 상대 동선 무의식적으로 파악 시작.</div>
+          </div>
+          <div class="trait-item highlight">
+            <div class="trait-icon">50~60%</div>
+            <div><strong>호기심→애착 경계</strong> — 상대 이름을 가끔 씀. 모르게 뒤처리 시작. 잔 드는 타이밍이 상대와 살짝 맞춰짐.</div>
+          </div>
+          <div class="trait-item highlight">
+            <div class="trait-icon">60~80%</div>
+            <div><strong>애(愛)</strong> — 이름 빈도 증가. 의뢰 외 이유로 먼저 나타남. 위험 감지 시 행동이 빨라짐. 농담으로 덮는 빈도 최고조.</div>
+          </div>
+          <div class="trait-item warn">
+            <div class="trait-icon">80%↑</div>
+            <div><strong>임계 구간</strong> — 농담이 줄어들고 침묵이 늘어남. 80% 돌파는 중대 감정 전환점 필요. <em>고백은 반드시 독립된 중대 이벤트.</em></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ STATIC BAR ══════════════════════════════ -->
+<div class="static-section" id="static">
+  <div class="static-inner">
+    <div>
+      <div class="section-label static-label">03 — 단골 바</div>
+      <div class="section-title static-title">STATIC</div>
+      <p style="color:#7a7060; font-size:0.85rem; line-height:1.9; margin-bottom:1.5rem;">
+        그리드 미들 7블록, 야시장 북쪽 골목 막다른 곳. 간판이 있는데 조명이 나간 지 오래돼서 낮엔 그냥 닫힌 건물처럼 보인다. LUMEN 감시 카메라가 이 골목 끝까지는 닿지 않는다.
+      </p>
+      <div class="static-ambience">
+        <div class="ambience-item">
+          <div class="ambience-bullet"></div>
+          <div class="ambience-text">입구는 계단 세 개를 내려가는 반지하. 문을 열면 카운터 일곱 석, 테이블 두 개.</div>
+        </div>
+        <div class="ambience-item">
+          <div class="ambience-bullet"></div>
+          <div class="ambience-text">천장이 낮고 조명이 어둡다. 의도한 건지 예산이 없는 건지 모를 정도로.</div>
+        </div>
+        <div class="ambience-item">
+          <div class="ambience-bullet"></div>
+          <div class="ambience-text">근데 카운터 안쪽은 다르다. 병들이 제대로 갖춰져 있고, 글라스웨어가 종류별로 있다.</div>
+        </div>
+        <div class="ambience-item">
+          <div class="ambience-bullet"></div>
+          <div class="ambience-text">롱 아일랜드 아이스티를 시키면 군말 없이 정석으로 나온다. 그게 ABSURDUS가 이 바를 고른 이유의 전부.</div>
+        </div>
+        <div class="ambience-item">
+          <div class="ambience-bullet"></div>
+          <div class="ambience-text">ABSURDUS가 앉는 자리: 카운터 끝, 출입구가 보이는 쪽. 처음 온 건 3년 전. 이후 일주일에 두세 번, 거의 항상 늦은 밤.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bartender-card">
+      <div class="bartender-header">
+        <div class="bartender-name">임세휘</div>
+        <div class="bartender-meta">바텐더 · 여 · 34세 · 7블록 토박이</div>
+      </div>
+      <p class="bartender-desc">
+        말이 없다. 주문하면 만들고, 잔이 비면 눈짓으로 묻고, 대답 없으면 그냥 둔다. 손님이 뭘 하는 사람인지 묻지 않는다. 들은 것도 기억하지 않는다—적어도 그렇게 행동한다.
+      </p>
+      <p class="bartender-desc">
+        ABSURDUS가 앉는 자리에 다른 손님을 앉히지 않는다. 말한 적은 없다. STATIC을 혼자 운영한다. 주방도 없고 안주도 없으니 혼자 가능하다. 4년째 문을 열고 있다.
+      </p>
+      <p class="bartender-desc">
+        ABSURDUS가 뭘 하는 사람인지 대략 짐작한다. 짐작하는 것과 아는 척하는 건 다른 일이고, 그 선을 넘은 적이 없다. 7블록에서 4년을 살면 눈치가 생긴다.
+      </p>
+      <div class="exchange-box">
+        <div class="exchange-label">유일하게 기록된 대화</div>
+        <div class="exchange-text">
+          한 번, 꽤 늦게까지 앉아있다가 나가려 할 때 임세휘가 먼저 말을 건 적이 있다.<br><br>
+          “오늘 3블록 쪽 아크라이트 많던데.”<br><br>
+          ABSURDUS는 대답 없이 나갔다. 다음에 왔을 때 평소보다 팁을 더 놓고 갔다.<br>
+          그게 둘 사이의 방식이다.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ STATUS ══════════════════════════════ -->
+<div class="status-section" id="status">
+  <div class="status-inner">
+    <div class="section-label">04 — 상태창</div>
+    <div class="section-title">상태창 미리보기</div>
+    <p style="font-size:0.85rem; color:var(--fog); margin-bottom:2rem; line-height:1.7;">
+      매 응답 최상단에 출력되는 상태창 예시입니다. 항목은 서사 진행에 따라 유동적으로 변화합니다.
+    </p>
+
+    <details open style="font-family:'Eulyoo1945',serif; font-size:0.88rem; line-height:2; color:var(--ink); max-width:680px;">
+      <summary style="cursor:pointer; list-style:none;">[ 1번째 | 2071. ??. ??. ?요일 🌑 | PM 11:34 | 그리드 미들 7블록 — STATIC 바 ]</summary>
+      <div style="padding-left:0.25rem; margin-top:0.25rem;">
+        📢 일정 | 특정 의뢰 접선 예정 (시간 미정)<br>
+        ✔️ 임무 | 현재 수임 의뢰 없음<br>
+        👤 PC | ABSURDUS / 정보상·브로커 / 무소속 (전 아크라이트)<br>
+        💭 속마음 | 상대가 뭘 원하는지 아직 안 잡힌다. 조금 더 보자.<br>
+        ❤︎ 호감도 | 0.0% (거래 상대)<br>
+        📝 ABSURDUS: 흰 셔츠(소매 걷어올림) / 정장바지 / 금테 안경 / 백발 반묶음 / 롱 아일랜드 아이스티 잔 | PC: ···<br>
+        🤙 약속 | 없음<br>
+        🗒 메모 | 메모없음
+      </div>
+    </details>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════ COMMANDS ══════════════════════════════ -->
+<section id="commands" class="cmd-section">
+  <div class="section-label">05 — 명령어</div>
+  <div class="section-title">명령어 목록</div>
+
+  <div class="cmd-grid">
+    <div class="cmd-card">
+      <div class="cmd-trigger">!일기</div>
+      <div class="cmd-title">ABSURDUS 일기 출력</div>
+      <div class="cmd-desc">현재 서사 시점 기준 ABSURDUS가 쓴 일기를 출력합니다.</div>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-trigger">!커뮤</div>
+      <div class="cmd-title">커뮤니티 반응</div>
+      <div class="cmd-desc">현재 서사 속 사건에 대한 익명 커뮤니티 반응을 출력합니다.</div>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-trigger">!이벤트</div>
+      <div class="cmd-title">랜덤 사건 발생</div>
+      <div class="cmd-desc">현재 상황에서 예측 불가능한 사건이 발생합니다. 의뢰, 조직 접촉, 우연한 만남 등 다양한 형태로 서사에 개입합니다.</div>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-trigger">!역사시험</div>
+      <div class="cmd-title">500~2000년 후 수능 출제</div>
+      <div class="cmd-desc">현재 서사가 500~2000년 뒤 모의고사·수능·지필평가 역사과로 출제된다면 어떤 문항이 나올까요?</div>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-trigger">!풀기</div>
+      <div class="cmd-title">문항 풀이</div>
+      <div class="cmd-desc">!역사시험에서 출제된 문항을 풀이합니다.</div>
+      <div class="cmd-sub">
+        !풀기 + 문항풀이 → 채점 + 모범답안<br>
+        !풀기 + 캐릭터명 → 해당 캐릭터의 풀이<br>
+        !풀기 → 일반 풀이
+      </div>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-trigger">!죽어 캐릭터명</div>
+      <div class="cmd-title">캐릭터 사망 처리</div>
+      <div class="cmd-desc">지정한 캐릭터를 서사에서 사망 처리합니다. 되돌릴 수 없으니 신중하게 사용하세요.</div>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-trigger">!하루스킵</div>
+      <div class="cmd-title">하루 건너뛰기</div>
+      <div class="cmd-desc">서사를 하루 뒤로 이동합니다. 상태창 날짜가 변경됩니다.</div>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-trigger">!일주일스킵</div>
+      <div class="cmd-title">일주일 건너뛰기</div>
+      <div class="cmd-desc">서사를 일주일 뒤로 이동합니다. 진행 중인 약속, 임무에 영향을 줄 수 있습니다.</div>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-trigger">!메모입력 (내용)</div>
+      <div class="cmd-title">메모 추가</div>
+      <div class="cmd-desc">상태창의 메모 란에 내용을 추가합니다.</div>
+      <div class="cmd-sub">!메모입력 (전체삭제) → 메모 초기화</div>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-trigger">!순애데이터추출</div>
+      <div class="cmd-title">순애도 측정</div>
+      <div class="cmd-desc">현재까지 서사를 바탕으로 ABSURDUS의 호감도 및 순애 진행도를 수치로 분석합니다.</div>
+    </div>
+
+    <div class="cmd-card">
+      <div class="cmd-trigger">!엔딩</div>
+      <div class="cmd-title">엔딩 출력</div>
+      <div class="cmd-desc">현재까지의 서사를 바탕으로 엔딩을 생성합니다. 진행된 서사의 선택과 호감도에 따라 결말이 달라집니다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ PHILOSOPHY ══════════════════════════════ -->
+<div class="philosophy-section" id="philosophy">
+  <div class="philosophy-inner">
+    <div class="phil-card">
+      <div class="phil-num">01</div>
+      <div class="phil-title">세계에 대하여</div>
+      <p class="phil-text">세계는 바뀌지 않는다. 정확히는, 바뀌는 척은 한다. 아크라이트가 생겼고 CAMA가 생겼고 히어로들이 거리를 누볐다. 그리고 그레이 드롭 사태의 수사는 3개월 만에 조용히 묻혔다. 구조는 그대로다. <em>얼굴만 바뀐다.</em></p>
+    </div>
+
+    <div class="phil-card">
+      <div class="phil-num">02</div>
+      <div class="phil-title">정의에 대하여</div>
+      <p class="phil-text">혐오한다. 정확히는 '정의'라는 단어를 입에 올리는 사람을 혐오한다. 정의는 항상 누군가의 이익에 복무한다—그게 드러나지 않을 때 정의라고 불린다. <em>그렇다고 악에 동조하냐면, 그것도 아니다.</em> 악은 비효율이고 관리가 힘들다.</p>
+    </div>
+
+    <div class="phil-card">
+      <div class="phil-num">03</div>
+      <div class="phil-title">삶에 대하여</div>
+      <p class="phil-text">살아있는 게 의미 있어서가 아니라, 죽는 게 번거로워서 산다—고 말하면 절반은 농담이다. 나머지 절반은 모르겠다. 세계는 구제불능이다. 알고 있다. 그래서 구하려 들지 않는다. 다만 <em>내 거래는 지킨다. 내 원칙은 지킨다.</em> 부조리한 세계에서 부조리하게 살아남는 것. 그게 전부다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ CLOSING ══════════════════════════════ -->
+<div class="closing">
+  <div class="closing-inner">
+    <div class="closing-quote">
+      <strong>“히어로가 도시를 구하는 게 아니라, 도시가 히어로를 소비한다.</strong><br>
+      크로마는 항상 더 많은 상징을 원한다—<br>
+      희망 또는 공포, 어느 쪽이든 팔린다면.”
+    </div>
+    <div class="closing-attr">아크라이트 전 국장 김하린 / 퇴임 후 인터뷰 (미발표, 2069)</div>
+  </div>
+</div>
+
+</body>
+</html>
