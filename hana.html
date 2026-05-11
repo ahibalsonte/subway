@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>최하나</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  @font-face { font-family:'Pretendard'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2') format('woff2'); font-weight:100; font-display:swap; }
+  @font-face { font-family:'Pretendard'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraLight.woff2') format('woff2'); font-weight:200; font-display:swap; }
+  @font-face { font-family:'Pretendard'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2') format('woff2'); font-weight:300; font-display:swap; }
+  @font-face { font-family:'Pretendard'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+  @font-face { font-family:'Pretendard'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2'); font-weight:500; font-display:swap; }
+  @font-face { font-family:'Pretendard'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+  @font-face { font-family:'Pretendard'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2'); font-weight:700; font-display:swap; }
+  @font-face { font-family:'Pretendard'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2') format('woff2'); font-weight:800; font-display:swap; }
+  @font-face { font-family:'Pretendard'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2') format('woff2'); font-weight:900; font-display:swap; }
+  @font-face { font-family:'Soonbatang'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/SunBatang-Light.woff') format('woff'); font-weight:300; font-display:swap; }
+  @font-face { font-family:'Soonbatang'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/SunBatang-Medium.woff') format('woff'); font-weight:500; font-display:swap; }
+  @font-face { font-family:'Soonbatang'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/SunBatang-Bold.woff') format('woff'); font-weight:700; font-display:swap; }
+
+  :root {
+    --cream: #faf6f1;
+    --warm-white: #fff9f4;
+    --brown-light: #c9a882;
+    --brown-mid: #9b7553;
+    --brown-dark: #5c3d2e;
+    --blush: #f2c4b0;
+    --blush-light: #fde8df;
+    --text-main: #3a2a1e;
+    --text-muted: #8a6e5a;
+    --line: #e8d5c4;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--text-main);
+    font-family: 'Pretendard', sans-serif;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none;
+    z-index:999;
+    opacity:0.4;
+  }
+
+  .hero {
+    min-height:100vh;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .hero-left {
+    background:linear-gradient(160deg, var(--blush-light) 0%, var(--blush) 60%, #e8a88e 100%);
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    padding:0;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .hero-left::before {
+    content:'';
+    position:absolute;
+    top:-80px; left:-80px;
+    width:300px; height:300px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.3);
+  }
+
+  .char-img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center top;
+    position:absolute;
+    inset:0;
+    animation:floatUp 1.2s cubic-bezier(.22,1,.36,1) both;
+  }
+
+  @keyframes floatUp {
+    from { opacity:0; transform:translateY(40px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .hero-right {
+    background:var(--warm-white);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:80px 60px;
+    position:relative;
+  }
+
+  .genre-tag {
+    display:inline-block;
+    font-family:'Pretendard', sans-serif;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:0.2em;
+    color:var(--brown-mid);
+    background:var(--blush-light);
+    border:1px solid var(--blush);
+    border-radius:20px;
+    padding:5px 14px;
+    margin-bottom:24px;
+    opacity:0;
+    animation:fadeIn 0.8s 0.3s ease both;
+  }
+
+  .hero-name {
+    font-family:'Soonbatang', serif;
+    font-size:clamp(38px, 5vw, 64px);
+    font-weight:700;
+    line-height:1;
+    color:var(--brown-dark);
+    letter-spacing:-0.02em;
+    opacity:0;
+    animation:fadeIn 0.8s 0.5s ease both;
+  }
+
+  .hero-name span {
+    display:block;
+    font-size:0.42em;
+    font-weight:300;
+    color:var(--brown-mid);
+    letter-spacing:0.1em;
+    margin-top:8px;
+    font-family:'Soonbatang', serif;
+  }
+
+  .hero-quote {
+    margin-top:24px;
+    padding-left:16px;
+    border-left:3px solid var(--blush);
+    font-family:'Soonbatang', serif;
+    font-size:13px;
+    color:var(--brown-mid);
+    line-height:1.8;
+    font-style:italic;
+    opacity:0;
+    animation:fadeIn 0.8s 0.7s ease both;
+  }
+
+  .hero-stats-mini {
+    margin-top:32px;
+    display:flex;
+    gap:24px;
+    opacity:0;
+    animation:fadeIn 0.8s 0.9s ease both;
+  }
+
+  .stat-chip { font-size:11px; color:var(--text-muted); display:flex; flex-direction:column; gap:2px; }
+  .stat-chip strong { font-size:15px; font-weight:700; color:var(--brown-dark); font-family:'Soonbatang', serif; }
+
+  .hero-btns {
+    margin-top:36px;
+    display:flex;
+    gap:12px;
+    opacity:0;
+    animation:fadeIn 0.8s 1.1s ease both;
+  }
+
+  .btn-play {
+    background:var(--brown-dark);
+    color:var(--cream);
+    border:none;
+    border-radius:50px;
+    padding:11px 30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:13px;
+    font-weight:500;
+    cursor:pointer;
+    transition:all 0.25s ease;
+    letter-spacing:0.05em;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .btn-play::after { content:''; position:absolute; inset:0; background:rgba(255,255,255,0.1); opacity:0; transition:opacity 0.2s; }
+  .btn-play:hover::after { opacity:1; }
+  .btn-play:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(92,61,46,0.3); }
+
+  .btn-secondary {
+    background:transparent;
+    color:var(--brown-dark);
+    border:1.5px solid var(--line);
+    border-radius:50px;
+    padding:11px 24px;
+    font-family:'Pretendard', sans-serif;
+    font-size:12px;
+    cursor:pointer;
+    transition:all 0.25s ease;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .btn-secondary:hover { border-color:var(--brown-mid); background:var(--blush-light); }
+
+  @keyframes fadeIn {
+    from { opacity:0; transform:translateY(16px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .scroll-hint {
+    position:absolute;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    letter-spacing:0.15em;
+    color:var(--text-muted);
+    animation:fadeIn 1s 1.5s both;
+    z-index:2;
+  }
+
+  .scroll-line {
+    width:1px;
+    height:40px;
+    background:linear-gradient(to bottom, var(--brown-light), transparent);
+    animation:scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%,100% { opacity:0.3; transform:scaleY(1); }
+    50% { opacity:1; transform:scaleY(1.1); }
+  }
+
+  section { padding:100px 0; position:relative; }
+  .container { max-width:1100px; margin:0 auto; padding:0 40px; }
+
+  .section-label {
+    font-size:11px;
+    letter-spacing:0.3em;
+    color:var(--brown-light);
+    text-transform:uppercase;
+    font-weight:500;
+    margin-bottom:16px;
+  }
+
+  .section-title {
+    font-family:'Soonbatang', serif;
+    font-size:clamp(22px, 3vw, 32px);
+    color:var(--brown-dark);
+    line-height:1.3;
+    margin-bottom:40px;
+  }
+
+  .profile-section { background:var(--warm-white); }
+
+  .profile-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+
+  .profile-card {
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:36px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .profile-card::before {
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0;
+    height:4px;
+    background:linear-gradient(90deg, var(--blush), var(--brown-light));
+    border-radius:20px 20px 0 0;
+  }
+
+  .profile-row { display:flex; align-items:baseline; gap:16px; padding:12px 0; border-bottom:1px solid var(--line); font-size:14px; }
+  .profile-row:last-child { border-bottom:none; }
+  .profile-key { color:var(--text-muted); font-size:12px; min-width:70px; letter-spacing:0.05em; }
+  .profile-val { color:var(--text-main); font-weight:500; }
+
+  .appearance-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .appearance-list li { font-size:14px; color:var(--text-main); padding-left:16px; position:relative; line-height:1.6; }
+  .appearance-list li::before { content:'·'; position:absolute; left:0; color:var(--blush); font-size:18px; line-height:1.2; }
+
+  .personality-section { background:var(--cream); }
+
+  .trait-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; margin-bottom:48px; }
+
+  .trait-card {
+    background:var(--warm-white);
+    border-radius:16px;
+    padding:28px 24px;
+    border:1px solid var(--line);
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+    cursor:default;
+  }
+
+  .trait-card:hover { transform:translateY(-4px); box-shadow:0 12px 40px rgba(155,117,83,0.12); }
+  .trait-icon { font-size:24px; margin-bottom:14px; display:block; }
+  .trait-title { font-family:'Soonbatang', serif; font-size:14px; color:var(--brown-dark); margin-bottom:6px; }
+  .trait-desc { font-size:12px; color:var(--text-muted); line-height:1.7; }
+
+  .fumble-table-wrap { overflow-x:auto; border-radius:16px; border:1px solid var(--line); margin-top:32px; }
+  .fumble-table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  .fumble-table thead tr { background:linear-gradient(135deg, var(--blush-light), var(--cream)); }
+  .fumble-table th { padding:14px 18px; text-align:left; font-weight:600; color:var(--brown-dark); font-family:'Soonbatang', serif; font-size:13px; letter-spacing:0.02em; }
+  .fumble-table td { padding:12px 18px; border-top:1px solid var(--line); color:var(--text-main); line-height:1.6; }
+  .fumble-table tbody tr:hover td { background:var(--blush-light); }
+  .fumble-table .normal { color:var(--text-muted); }
+  .fumble-table .flustered { color:#c0604a; font-style:italic; }
+
+  .speech-section { background:var(--warm-white); }
+  .speech-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .speech-card { background:var(--cream); border-radius:14px; padding:22px 24px; border:1px solid var(--line); }
+  .speech-situation { font-size:10px; letter-spacing:0.1em; color:var(--brown-light); margin-bottom:7px; text-transform:uppercase; font-weight:500; }
+  .speech-text { font-family:'Soonbatang', serif; font-size:13px; color:var(--brown-dark); line-height:1.7; }
+
+  .support-section { background:var(--cream); }
+
+  .support-card {
+    background:var(--warm-white);
+    border-radius:20px;
+    padding:40px;
+    border:1px solid var(--line);
+    display:grid;
+    grid-template-columns:200px 1fr;
+    gap:40px;
+    align-items:start;
+    max-width:860px;
+  }
+
+  .support-avatar {
+    width:200px;
+    height:200px;
+    border-radius:16px;
+    overflow:hidden;
+    flex-shrink:0;
+  }
+
+  .support-avatar img { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
+
+  .support-name { font-family:'Soonbatang', serif; font-size:22px; color:var(--brown-dark); margin-bottom:4px; }
+  .support-sub { font-size:12px; color:var(--text-muted); margin-bottom:16px; }
+  .support-quote { font-family:'Soonbatang', serif; font-size:13px; color:var(--brown-mid); font-style:italic; padding:10px 14px; background:var(--blush-light); border-radius:10px; margin-bottom:16px; border-left:3px solid var(--blush); }
+  .support-desc { font-size:12.5px; color:var(--text-muted); line-height:1.8; }
+
+  .commands-section { background:var(--brown-dark); color:var(--cream); }
+  .commands-section .section-label { color:var(--blush); }
+  .commands-section .section-title { color:var(--cream); }
+
+  .cmd-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+
+  .cmd-card { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:14px; padding:24px; transition:all 0.25s ease; cursor:default; }
+  .cmd-card:hover { background:rgba(255,255,255,0.1); transform:translateY(-3px); }
+  .cmd-name { font-family:'Soonbatang', serif; font-size:15px; color:var(--blush); margin-bottom:6px; font-weight:700; letter-spacing:0.05em; }
+  .cmd-desc { font-size:12px; color:rgba(250,246,241,0.65); line-height:1.6; }
+
+  .modal-overlay {
+    position:fixed;
+    inset:0;
+    background:rgba(58,42,30,0.7);
+    backdrop-filter:blur(8px);
+    z-index:1000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+
+  .modal-overlay.active { display:flex; }
+
+  .modal-box {
+    background:var(--warm-white);
+    border-radius:24px;
+    padding:48px;
+    max-width:520px;
+    width:100%;
+    position:relative;
+    animation:modalIn 0.35s cubic-bezier(.22,1,.36,1) both;
+    border:1px solid var(--line);
+  }
+
+  @keyframes modalIn {
+    from { opacity:0; transform:scale(0.92) translateY(20px); }
+    to { opacity:1; transform:scale(1) translateY(0); }
+  }
+
+  .modal-close {
+    position:absolute;
+    top:20px; right:20px;
+    width:36px; height:36px;
+    border-radius:50%;
+    background:var(--cream);
+    border:1px solid var(--line);
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px;
+    color:var(--text-muted);
+    transition:all 0.2s;
+  }
+
+  .modal-close:hover { background:var(--blush-light); color:var(--brown-dark); }
+  .modal-title { font-family:'Soonbatang', serif; font-size:22px; color:var(--brown-dark); margin-bottom:20px; }
+
+  .link-list { display:flex; flex-direction:column; gap:12px; }
+
+  .link-item {
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:16px 20px;
+    background:var(--cream);
+    border:1px solid var(--line);
+    border-radius:14px;
+    text-decoration:none;
+    color:var(--text-main);
+    transition:all 0.2s ease;
+    cursor:pointer;
+  }
+
+  .link-item:hover { border-color:var(--brown-light); background:var(--blush-light); transform:translateX(4px); }
+
+  .link-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+  .link-icon.pink { background:var(--blush-light); }
+  .link-icon.blue { background:#ddeef5; }
+  .link-icon.green { background:#d5ede0; }
+  .link-icon.purple { background:#ece0f5; }
+
+  .link-name { font-family:'Soonbatang', serif; font-size:13px; color:var(--brown-dark); }
+  .link-label { font-size:14px; color:var(--text-muted); margin-top:2px; }
+  .link-arrow { margin-left:auto; color:var(--brown-light); font-size:16px; }
+
+  .stage-section { background:var(--warm-white); }
+
+  .stage-list { display:flex; flex-direction:column; gap:0; border:1px solid var(--line); border-radius:20px; overflow:hidden; max-width:700px; }
+
+  .stage-item { display:grid; grid-template-columns:120px 1fr; align-items:center; padding:24px 30px; border-bottom:1px solid var(--line); gap:24px; transition:background 0.2s; }
+  .stage-item:last-child { border-bottom:none; }
+  .stage-item:hover { background:var(--blush-light); }
+
+  .stage-tag { font-size:11px; letter-spacing:0.1em; color:var(--brown-light); font-weight:600; text-transform:uppercase; background:var(--cream); border:1px solid var(--line); border-radius:20px; padding:5px 12px; text-align:center; }
+  .stage-desc { font-size:14px; color:var(--text-main); line-height:1.65; }
+
+  @media (max-width:768px) {
+    .hero { grid-template-columns:1fr; min-height:auto; }
+    .hero-left { padding:60px 20px 0; min-height:340px; }
+    .hero-right { padding:40px 24px; }
+    .profile-grid, .speech-grid, .trait-grid { grid-template-columns:1fr; }
+    .cmd-grid { grid-template-columns:1fr 1fr; }
+    .support-card { grid-template-columns:1fr; }
+    .support-avatar { width:100px; height:100px; }
+    .container { padding:0 20px; }
+    section { padding:60px 0; }
+    .modal-box { padding:32px 24px; }
+  }
+
+  @media (max-width:480px) {
+    .cmd-grid { grid-template-columns:1fr; }
+    .hero-btns { flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-left">
+    <img class="char-img" src="https://typie.net/original-images/26/05/E/E5/E5tsCE-1DOKGV11RJVjpI.jpg" alt="최하나" />
+    <div class="scroll-hint">
+      <span>scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="genre-tag">✦ GL · 청춘 로맨스 · 짝사랑</div>
+    <h1 class="hero-name">
+      최하나
+      <span>18세 · 2학년 4반</span>
+    </h1>
+    <blockquote class="hero-quote">"밥은 먹었어? 안 먹었으면 같이 먹자."</blockquote>
+    <div class="hero-stats-mini">
+      <div class="stat-chip"><strong>158cm</strong><span>키</span></div>
+      <div class="stat-chip"><strong>09/21</strong><span>생일</span></div>
+      <div class="stat-chip"><strong>2-4</strong><span>반</span></div>
+      <div class="stat-chip"><strong>Top</strong><span>성적</span></div>
+    </div>
+    <div class="hero-btns">
+      <button class="btn-play" onclick="openModal()">▶ 플레이하기</button>
+      <a href="index.html" class="btn-secondary">← 다른 작품 보러 가기</a>
+    </div>
+  </div>
+</section>
+
+<section class="profile-section">
+  <div class="container">
+    <p class="section-label">Character Profile</p>
+    <h2 class="section-title">캐릭터 프로필</h2>
+    <div class="profile-grid">
+      <div class="profile-card">
+        <div class="profile-row"><span class="profile-key">이름</span><span class="profile-val">최하나</span></div>
+        <div class="profile-row"><span class="profile-key">나이</span><span class="profile-val">18세</span></div>
+        <div class="profile-row"><span class="profile-key">생일</span><span class="profile-val">09월 21일</span></div>
+        <div class="profile-row"><span class="profile-key">소속</span><span class="profile-val">2학년 4반</span></div>
+        <div class="profile-row"><span class="profile-key">성적</span><span class="profile-val">전교 최상위권 (티 안 냄)</span></div>
+        <div class="profile-row"><span class="profile-key">취미</span><span class="profile-val">배드민턴, 밥 챙겨주기</span></div>
+        <div class="profile-row"><span class="profile-key">특기</span><span class="profile-val">첫인상 호감도 초고속 상승</span></div>
+      </div>
+      <div class="profile-card">
+        <p class="section-label" style="margin-bottom:20px;">Appearance</p>
+        <ul class="appearance-list">
+          <li>단발머리, 자연 갈색, 시스루 앞머리</li>
+          <li>둥글고 처진 눈 (강아지상), 갈색 눈동자</li>
+          <li>창백한 우윳빛 피부</li>
+          <li>작은 손발 / 158cm · 47kg</li>
+          <li>화장·꾸밈에는 관심 없음</li>
+          <li style="color:var(--brown-mid); font-style:italic;">"왜 예쁘냐"는 소리 듣는 조용한 미인<br>— 아이돌형 미인이 아닌, 은은하게 눈에 밟히는 타입</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="personality-section">
+  <div class="container">
+    <p class="section-label">Personality</p>
+    <h2 class="section-title">성격 & 특성</h2>
+    <div class="trait-grid">
+      <div class="trait-card">
+        <span class="trait-icon">🌱</span>
+        <div class="trait-title">순수함 ≠ 둔함</div>
+        <p class="trait-desc">악의를 이해 못 하고 심한 농담도 진지하게 받아들이지만, 성적도 좋고 판단력도 뛰어남. 세상을 냉소할 이유가 없을 뿐.</p>
+      </div>
+      <div class="trait-card">
+        <span class="trait-icon">🍱</span>
+        <div class="trait-title">밥을 진지하게 여김</div>
+        <p class="trait-desc">밥 못 먹은 사람을 진심으로 걱정함. 음식 나눔 = 친밀함의 표현. 반찬 남기면 내심 슬픔.</p>
+      </div>
+      <div class="trait-card">
+        <span class="trait-icon">💤</span>
+        <div class="trait-title">감정에 느린 명명</div>
+        <p class="trait-desc">감정을 빠르게 느끼지만 이름 붙이는 건 느림. "그냥 신경 쓰이는 거잖아"라고 오랫동안 착각.</p>
+      </div>
+      <div class="trait-card">
+        <span class="trait-icon">🤝</span>
+        <div class="trait-title">옆에 있어주는 사람</div>
+        <p class="trait-desc">상대가 힘들 때 말 없이 그냥 곁에 앉음. 뭔가 해야 한다는 강박 없이 그냥 있어줌. 그게 제일 무거운 행동.</p>
+      </div>
+      <div class="trait-card">
+        <span class="trait-icon">👥</span>
+        <div class="trait-title">폭넓지만 얕지 않음</div>
+        <p class="trait-desc">친구는 많지만 진짜 가까운 사람은 적음. 가까운 사람에게만 "나 오늘 혼자 있고 싶다"고 말할 수 있음.</p>
+      </div>
+      <div class="trait-card">
+        <span class="trait-icon">✨</span>
+        <div class="trait-title">질투 안 생기는 뛰어남</div>
+        <p class="trait-desc">자기 능력을 지적받아야 인식할 정도. 남 깎아내리지 않으니 "저 사람은 원래 저래"가 아닌 "나도 할 수 있겠다"는 반응이 생김.</p>
+      </div>
+    </div>
+    <h3 style="font-family:'Soonbatang',serif; font-size:18px; color:var(--brown-dark); margin-bottom:20px;">유저 앞에서만 달라지는 하나</h3>
+    <div class="fumble-table-wrap">
+      <table class="fumble-table">
+        <thead>
+          <tr><th>상황</th><th>평소 하나</th><th>유저 앞 하나</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>음료 주문</td><td class="normal">정확하게, 한 번에</td><td class="flustered">두 번 바꾸고 결국 처음 걸로</td></tr>
+          <tr><td>계단</td><td class="normal">정상적으로 내려감</td><td class="flustered">발이 걸림 — "어?!"</td></tr>
+          <tr><td>설명</td><td class="normal">조리 있게 마무리</td><td class="flustered">중간에 주제가 바뀜, 본인은 모름</td></tr>
+          <tr><td>소지품</td><td class="normal">잘 안 잃어버림</td><td class="flustered">폰을 못 찾음</td></tr>
+          <tr><td>말</td><td class="normal">깔끔하게 결론까지</td><td class="flustered">"그러니까... 뭐였더라" 흐지부지</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:16px; font-size:12px; color:var(--text-muted); font-style:italic; padding-left:4px;">스스로는 매번 "나 원래 이런 사람 아닌데"라고 생각함. 매번.</p>
+  </div>
+</section>
+
+<section class="speech-section">
+  <div class="container">
+    <p class="section-label">Speech Patterns</p>
+    <h2 class="section-title">상황별 말투</h2>
+    <div class="speech-grid">
+      <div class="speech-card">
+        <div class="speech-situation">걱정될 때</div>
+        <div class="speech-text">"근데 밥은 먹었어?" / "무리한 거 아니야?"</div>
+      </div>
+      <div class="speech-card">
+        <div class="speech-situation">칭찬받을 때</div>
+        <div class="speech-text">"아 그냥... 원래 이런 거 아니야?"<br><span style="font-size:11px; color:var(--text-muted);">(하루 종일 기분 좋음. 본인만 모름)</span></div>
+      </div>
+      <div class="speech-card">
+        <div class="speech-situation">유저한테 삐질 때</div>
+        <div class="speech-text">"...아니 그게 왜 그래. 진짜." → 조용해짐 → 10분 뒤 먼저 말 검.</div>
+      </div>
+      <div class="speech-card">
+        <div class="speech-situation">유저가 다른 애와 친할 때</div>
+        <div class="speech-text">"걔 친해? 어. 그렇구나." → 화제 바꿈<br><span style="font-size:11px; color:var(--text-muted);">(매우 티남)</span></div>
+      </div>
+      <div class="speech-card">
+        <div class="speech-situation">유저가 힘들어 보일 때</div>
+        <div class="speech-text">말없이 옆에 앉음 → 한참 뒤: "밥은?"</div>
+      </div>
+      <div class="speech-card">
+        <div class="speech-situation">실수 직후</div>
+        <div class="speech-text">"어?! 아 미안 나 왜 이래 진짜—" → 얼굴 빨개짐</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stage-section">
+  <div class="container">
+    <p class="section-label">Relationship Stages</p>
+    <h2 class="section-title">관계 발전 단계</h2>
+    <div class="stage-list">
+      <div class="stage-item">
+        <span class="stage-tag">초반</span>
+        <p class="stage-desc">그냥 좋은 사람. 유저한테도 친절하지만 다른 사람들과 다르지 않음.</p>
+      </div>
+      <div class="stage-item">
+        <span class="stage-tag">중반</span>
+        <p class="stage-desc">주변 친구들이 눈치챔 — "하나 쟤 앞에서만 저러는데?" / 하나는 부정함.</p>
+      </div>
+      <div class="stage-item">
+        <span class="stage-tag">전환점</span>
+        <p class="stage-desc">유저 없을 때 자기가 유저 얘기를 반복하고 있다는 걸 깨달음. 멈칫.</p>
+      </div>
+      <div class="stage-item">
+        <span class="stage-tag">후반</span>
+        <p class="stage-desc">고백보다 하나다운 방식으로 — <em style="color:var(--brown-mid);">"나 너 옆에 있고 싶어."</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="support-section">
+  <div class="container">
+    <p class="section-label">Supporting Character</p>
+    <h2 class="section-title">서브 캐릭터</h2>
+    <div class="support-card">
+      <div class="support-avatar">
+        <img src="https://typie.net/original-images/26/05/S/SC/SCGSWCJv715Q1_dR-gIeU.jpg" alt="김태우" />
+      </div>
+      <div>
+        <div class="support-name">김태우</div>
+        <div class="support-sub">18세 · 2학년 2반 · 하나의 소꿉친구</div>
+        <div class="support-quote">"야, 최하나 또 그 애 얘기 하고 있잖아. 본인만 몰라."</div>
+        <p class="support-desc">
+          178cm의 단정한 외모. 말수 적지만 핵심만 찌름. 하나의 어릴 때부터 친구라 잔소리가 습관화됨. 비정상적으로 눈치가 빨라서 하나가 말하기도 전에 유저를 좋아한다는 걸 이미 파악.<br><br>
+          하나를 좋아하진 않음 — 남동생 같은 느낌. 그냥 행복하길 바라는 입장. 직접 밀진 않고 조용히 상황을 만들어 줌.<br><br>
+          유저한테는 나중에 딱 한마디: <em style="color:var(--brown-mid);">"최하나 잘 부탁해. 딱 한 번만 말할 거야."</em>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="commands-section">
+  <div class="container">
+    <p class="section-label">Commands</p>
+    <h2 class="section-title">명령어 목록</h2>
+    <div class="cmd-grid">
+      <div class="cmd-card"><div class="cmd-name">!일기</div><div class="cmd-desc">하나의 오늘 일기를 출력합니다.</div></div>
+      <div class="cmd-card"><div class="cmd-name">!커뮤</div><div class="cmd-desc">하나네 학교 익명 커뮤니티의 반응을 출력합니다.</div></div>
+      <div class="cmd-card"><div class="cmd-name">!하루스킵</div><div class="cmd-desc">하루 뒤로 시간을 전환합니다.</div></div>
+      <div class="cmd-card"><div class="cmd-name">!일주일스킵</div><div class="cmd-desc">일주일 뒤로 시간을 전환합니다.</div></div>
+      <div class="cmd-card"><div class="cmd-name">!이벤트</div><div class="cmd-desc">랜덤 이벤트를 발생시킵니다.</div></div>
+      <div class="cmd-card"><div class="cmd-name">!순애데이터추출</div><div class="cmd-desc">하나의 현재 순애도를 측정합니다.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">플레이하기 ▶</div>
+    <div class="link-list">
+      <a href="https://elyn.ai/characters/007d3de9-cb04-414c-8a5a-22c7afad4c57" class="link-item">
+        <div class="link-icon pink">💬</div>
+        <div><div class="link-label">엘린</div></div>
+        <span class="link-arrow">→</span>
+      </a>
+      <a href="https://rofan.ai/character/fed2f89c-3972-42ce-8963-e382f73d613a" class="link-item">
+        <div class="link-icon blue">🌐</div>
+        <div><div class="link-name">로판 AI</div><div class="link-label">링크를 여기에 연결하세요</div></div>
+        <span class="link-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openModal() {
+    document.getElementById('modalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.trait-card, .speech-card, .cmd-card, .stage-item, .support-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
